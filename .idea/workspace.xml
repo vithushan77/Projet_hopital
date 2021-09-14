@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0904beaf-a193-4ac2-8dac-330fd85b6ddd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/back/include/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/vue/about.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/vue/products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/store.html" beforeDir="false" afterPath="$PROJECT_DIR$/vue/store.php" afterDir="false" />
-    </list>
+    <list default="true" id="0904beaf-a193-4ac2-8dac-330fd85b6ddd" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,6 +50,7 @@
       <workItem from="1631004518493" duration="1536000" />
       <workItem from="1631008319390" duration="6000" />
       <workItem from="1631600486086" duration="5731000" />
+      <workItem from="1631613481837" duration="120000" />
     </task>
     <servers />
   </component>
@@ -73,5 +67,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
