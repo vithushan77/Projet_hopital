@@ -23,7 +23,7 @@
             </h1>
         </header>
         <!-- Navigation-->
-        <?php include 'include/header.php'; ?>
+        <?php include '../include/header.php'; ?>
         <section class="page-section cta">
             <div class="container">
                 <div class="row">
