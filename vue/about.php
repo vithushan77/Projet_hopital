@@ -23,7 +23,7 @@
             </h1>
         </header>
         <!-- Navbar-->
-        <?php include '../back/include/header.php'; ?>
+        <?php include 'include/header.php'; ?>
         <section class="page-section about-heading">
             <div class="container">
                 <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="../assets/img/about.jpg" alt="..." />
