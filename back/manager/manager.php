@@ -66,6 +66,16 @@ class manager {
       'role'=>$u->getRole()
     ));
   }
+
+  public function afficherInfoProfil($id) {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE id=:id');
+    $sql->execute(array(
+      'id'=>$id
+    ));
+    return $id;
+  }
+
+
 }
 
 ?>
