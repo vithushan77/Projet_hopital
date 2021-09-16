@@ -20,6 +20,7 @@
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/products.php">Products</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/store.php">Store</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/inscription.php">Espace utilisateur</a></li>
               <?php }
                 ?>
             </ul>
