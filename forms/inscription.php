@@ -33,20 +33,24 @@
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Création de votre compte</span>
                                 </h2>
+
                                 <forms action="../back/add_user.php" method="post" >
                                   <div class="form-group row">
                                     <div class="col-md-6">
                                       <label for="">Nom de naissance</label>
                                       <input type="text" class="form-control" name="nom" minlength="4" maxlength="62" required>
                                     </div>
+
                                     <div class="col-md-6">
                                       <label for="">Nom d'usage</label>
                                       <input type="text" class="form-control" name="nom_usage"  maxlength="62">
                                     </div>
+
                                     <div class="col-md-6">
                                       <label for="">Prénom</label>
                                       <input type="text" class="form-control" name="prenom"  minlength="4" maxlength="62" required>
                                     </div>
+
                                     <div class="col-md-4">
                                       <label for="">Sexe</label>
                                       <select name="sexe" class="form-control" required>
@@ -56,19 +60,29 @@
                                         </optgroup>
                                       </select>
                                     </div>
+
                                     <div class="col-md-12">
                                       <label for="">Adresse mail</label>
                                       <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
                                     </div>
+
                                     <div class="col-md-12">
                                       <label for="">Créer un mot de passe</label>
                                       <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required>
                                     </div>
+
+                                    <div class="form-group row">
+                                      <div class="col-md-12">
+                                        <a href="/Hopital/forms/connexion.php">Déjà membre ?</a>
+                                      </div>
+                                    </div>
+
                                     <div class="form-group row">
                                       <div class="col-md-2">
                                         <input type="button" class="" value="Créer mon compte">
                                       </div>
                                     </div>
+
                                 </forms>
                             </div>
                         </div>
