@@ -25,7 +25,7 @@
         <?php include '../include/header.php'; ?>
         <section class="page-section about-heading">
             <div class="container">
-                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="/Projet_hopital/assets/img/about.jpg" alt="..." />
+<br>
                 <div class="about-heading-content">
                     <div class="row">
                         <div class="col-xl-9 col-lg-10 mx-auto">
@@ -73,7 +73,7 @@
 
                                     <div class="form-group row">
                                       <div class="col-md-12">
-                                        <a href="/Hopital/forms/connexion.php">Déjà membre ?</a>
+                                        <a href="/Projet_hopital/forms/connexion.php">Déjà membre ?</a>
                                       </div>
                                     </div>
 
