@@ -38,17 +38,17 @@
                                   <div class="form-group row">
                                     <div class="col-md-6">
                                       <label for="">Nom de naissance</label>
-                                      <input type="text" class="form-control" name="nom" minlength="4" maxlength="62" required>
+                                      <input type="text" class="form-control" name="nom" required>
                                     </div>
 
                                     <div class="col-md-6">
                                       <label for="">Nom d'usage</label>
-                                      <input type="text" class="form-control" name="nom_usage"  maxlength="62">
+                                      <input type="text" class="form-control" name="nom_usage">
                                     </div>
 
                                     <div class="col-md-6">
                                       <label for="">Prénom</label>
-                                      <input type="text" class="form-control" name="prenom"  minlength="4" maxlength="62" required>
+                                      <input type="text" class="form-control" name="prenom" required>
                                     </div>
 
                                     <div class="col-md-4">
@@ -63,7 +63,7 @@
 
                                     <div class="col-md-12">
                                       <label for="">Adresse mail</label>
-                                      <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
+                                      <input type="email" class="form-control" name="mail" required>
                                     </div>
 
                                     <div class="col-md-12">
@@ -79,7 +79,7 @@
 
                                     <div class="form-group row">
                                       <div class="col-md-2">
-                                        <input type="button" class="" value="Créer mon compte">
+                                        <input type="button" class="btn-btn-block" value="Créer mon compte">
                                       </div>
                                     </div>
 
