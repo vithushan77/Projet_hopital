@@ -25,17 +25,11 @@
         <?php include '../include/header.php'; ?>
         <section class="page-section about-heading">
             <div class="container">
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
+
 <br>
->>>>>>> 0b76a933119146ef17ed6c1154a2e20562a2f6b5
-=======
->>>>>>> Stashed changes
-=======
+
 <br>
->>>>>>> 0b76a933119146ef17ed6c1154a2e20562a2f6b5
+
                 <div class="about-heading-content">
                     <div class="row">
                         <div class="col-xl-9 col-lg-10 mx-auto">
@@ -43,19 +37,9 @@
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Création de votre compte</span>
                                 </h2>
-<<<<<<< Updated upstream
-                                <p class="text-center text-muted">Si vous avez deja un compte , <a href="connexion.php">Connectez vous</a>. </p>
-
-=======
-<<<<<<< HEAD
                                 <p class="text-center text-muted">Si vous avez deja un compte , <a href="connexion.php">Connectez vous</a>. </p>
 
                                 <form action="../back/add_user.php" method="post" >
-=======
->>>>>>> Stashed changes
-
-                                <forms action="../back/add_user.php" method="post" >
->>>>>>> 402cd0167a679b7179bf8cbbef43b51c9bd43549
                                   <div class="form-group row">
                                     <div class="col-md-6">
                                       <label for="">Nom de naissance</label>
@@ -89,52 +73,16 @@
 
                                     <div class="col-md-12">
                                       <label for="">Créer un mot de passe</label>
-<<<<<<< Updated upstream
-<<<<<<< HEAD
                                       <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required><br>
-=======
-                                      <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required>
                                     </div>
 
-                                    <div class="form-group row">
-                                      <div class="col-md-12">
-                                        <a href="/Projet_hopital/forms/connexion.php">Déjà membre ?</a>
-<<<<<<< HEAD
-=======
-                                        <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required> <br>
-                                    </div>
-<<<<<<< HEAD
                                       <div>
                                           <button type="submit" class="btninsc">Crée mon compte</button>
                                       </div>
                                 </form>
-=======
 
-                                    <div class="form-group row">
-                                      <div class="col-md-12">
-                                        <a href="/Hopital/forms/connexion.php">Déjà membre ?</a>
-=======
->>>>>>> 0b76a933119146ef17ed6c1154a2e20562a2f6b5
-                                      </div>
-                                    </div>
 
-                                    <div class="form-group row">
-                                      <div class="col-md-2">
-                                        <input type="button" class="btn-btn-block" value="Créer mon compte">
->>>>>>> Stashed changes
-                                      </div>
->>>>>>> 0b76a933119146ef17ed6c1154a2e20562a2f6b5
-                                    </div>
-
-<<<<<<< Updated upstream
-                                    <div>
-                                        <input type="submit" class="btninsc" value="Créer mon compte">
-                                    </div>
-
-=======
->>>>>>> Stashed changes
-                                </forms>
->>>>>>> 402cd0167a679b7179bf8cbbef43b51c9bd43549
+                                </form>
                             </div>
                         </div>
                     </div>

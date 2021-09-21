@@ -30,29 +30,8 @@
                 <div class="col-xl-9 col-lg-10 mx-auto">
                     <div class="bg-faded rounded p-5">
                         <h2 class="section-heading mb-4">
-<<<<<<< Updated upstream
                             <span class="section-heading-upper">Création de votre compte</span>
                         </h2>
-                        <p class="text-center text-muted">Si vous avez deja un compte , <a href="connexion.php">Connectez vous</a>. </p>
-
-
-                        <forms action="../back/add_user.php" method="post" >
-                                <div class="col-md-12">
-                                    <label for="">Adresse mail</label>
-                                    <input type="email" class="form-control" name="mail" required>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <label for="">Mot de passe</label>
-                                    <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required><br>
-                                </div>
-
-                                <div>
-                                    <input type="submit" class="btninsc" value="Créer mon compte">
-                                </div>
-
-                        </forms>
-=======
                             <span class="section-heading-upper">Connecter vous sur votre compte</span>
                         </h2>
                         <p class="text-center text-muted">Si vous etes nouveau, <a href="inscription.php">Inscrivez vous</a>. </p>
@@ -72,7 +51,6 @@
                                     <button type="submit" class="btninsc">Se connecter</button>
                                 </div>
                         </form>
->>>>>>> Stashed changes
                     </div>
                 </div>
             </div>

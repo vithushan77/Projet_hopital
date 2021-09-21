@@ -3023,20 +3023,15 @@ textarea.form-control-lg {
   opacity: 0.65;
 }
 
-<<<<<<< Updated upstream
-.btninsc {
-=======
 .btninsc{
->>>>>>> Stashed changes
   color: white;
   background-color: #c8ad7f;
   border-color: #c8ad7f;
   border-radius: 5px;
 }
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
+
 .btn-primary {
   color: #000;
   background-color: #e6a756;
