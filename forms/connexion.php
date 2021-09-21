@@ -30,15 +30,14 @@
                 <div class="col-xl-9 col-lg-10 mx-auto">
                     <div class="bg-faded rounded p-5">
                         <h2 class="section-heading mb-4">
-                            <span class="section-heading-upper">Création de votre compte</span>
+                            <span style="text-align: center" class="section-heading-upper">Connnectez-vous</span>
                         </h2>
-                            <span class="section-heading-upper">Connecter vous sur votre compte</span>
+                            <span class="section-heading-upper"></span>
                         </h2>
                         <p class="text-center text-muted">Si vous etes nouveau, <a href="inscription.php">Inscrivez vous</a>. </p>
 
-                        <form action="../back/add_user.php" method="post" >
+                        <form action="../back/login_back.php" method="post" >
                             <div class="form-group row">
-                                <div class="col-md-6">
                                 <div class="col-md-12">
                                     <label for="">Adresse mail</label>
                                     <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
