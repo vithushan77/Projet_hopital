@@ -37,7 +37,7 @@
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Création de votre compte</span>
                                 </h2>
-                                <p class="text-center text-muted">Si vous avez deja un compte, <a href="connexion.php">Connectez vous</a>. </p>
+                                <p class="text-center text-muted">Si vous avez déjà un compte, <a href="connexion.php">connectez vous ici</a>. </p>
 
                                 <form action="../back/add_user.php" method="post" >
                                   <div class="form-group row">
@@ -76,7 +76,7 @@
                                       <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required><br>
                                     </div>
                                       <div>
-                                          <button type="submit" class="btninsc">Crée mon compte</button>
+                                          <button type="submit" class="btninsc">Créer mon compte</button>
                                       </div>
                                 </form>
                             </div>
