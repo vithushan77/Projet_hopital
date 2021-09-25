@@ -4,7 +4,9 @@ class user {
 
   private $id;
   private $nom;
+  private $nom_usage;
   private $prenom;
+  private $sexe;
   private $mail;
   private $mdp;
   private $role;
@@ -50,6 +52,16 @@ public function hydrate($donnees)
     $this->nom = $nom;
   }
 
+  public function getNom_usage()
+  {
+    return $this->nom_usage;
+  }
+
+  public function setNom_usage($nom_usage)
+  {
+    $this->nom_usage = $nom_usage;
+  }
+
   public function getPrenom()
   {
     return $this->prenom;
@@ -58,6 +70,16 @@ public function hydrate($donnees)
   public function setPrenom($prenom)
   {
     $this->prenom = $prenom;
+  }
+
+  public function getSexe()
+  {
+    return $this->sexe;
+  }
+
+  public function setSexe($sexe)
+  {
+    $this->sexe = $sexe;
   }
 
   public function getMail()

@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php session_start()?>
+<?php
+
+session_start();
+
+include_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
+
+?>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -22,6 +29,13 @@
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/inscription.php">Espace utilisateur</a></li>
               <?php }
+                if(isset($_SESSION['user'])) {
+                  ?>
+                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Home</a></li>
+                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
+                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/moncompte.php">Mon compte</a></li>
+                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
+                <?php }
                 ?>
             </ul>
         </div>

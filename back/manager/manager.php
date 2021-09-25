@@ -5,11 +5,12 @@ class manager {
 //Connexion à la base de données
   public function connexionBdd() {
     try {
-      $db = new PDO('mysql:host=localhost;dbname=;charset=utf8', 'root', '');
+      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
     }
     catch(Exception $e) {
-      die('Error' : $e->getMessage());
+      die('Error:' .$e->getMessage());
     }
+    return $db;
   }
 
   public function signIn($signin) {
@@ -33,17 +34,19 @@ class manager {
   public function insertUser(User $u) {
     $sql = $this->connexionBdd()->prepare('SELECT nom, prenom FROM user WHERE nom=:nom AND prenom=:prenom');
     $sql->execute(array(
-      $u->getNom(),
-      $u->getPrenom()
+      'nom'=>$u->getNom(),
+      'prenom'=>$u->getPrenom()
     ));
     $rslt = $sql->fetch();
 
     if($rslt == false) {
-      $sql = $this->connexionBdd()->prepare("INSERT INTO ...(nom, prenom, mail, mdp, role)
-      VALUES(:nom, :prenom, :mail, :mdp, :role)");
+      $sql = $this->connexionBdd()->prepare("INSERT INTO user (nom, nom_usage, prenom, sexe, mail, mdp, role)
+      VALUES(:nom, :nom_usage, :prenom, :sexe, :mail, :mdp, :role)");
       $sql->execute(array(
         'nom'=>$u->getNom(),
+        'nom_usage'=>$u->getNom_usage(),
         'prenom'=>$u->getPrenom(),
+        'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
         'mdp'=>$u->getMdp(),
         'role'=>$u->getRole()
