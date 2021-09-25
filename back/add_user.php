@@ -10,9 +10,9 @@ $manager = new manager();
 $new_user->setRole('patient');
 $result = $manager->insertUser($new_user);
 if($result) {
-  header('Location: ../forms/inscription.php');
-} else {
   header('Location: ../forms/connexion.php');
+} else {
+  header('Location: ../forms/inscription.php');
 }
 
  ?>
