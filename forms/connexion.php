@@ -34,7 +34,7 @@
                         </h2>
                             <span class="section-heading-upper"></span>
                         </h2>
-                        <p class="text-center text-muted">Si vous etes nouveau, <a href="inscription.php">Inscrivez vous</a>. </p>
+                        <p class="text-center text-muted">Pas encore membre ?<a href="inscription.php">Inscrivez vous ici.</a>. </p>
 
                         <form action="../back/login_back.php" method="post" >
                             <div class="form-group row">
