@@ -36,7 +36,7 @@
                         </h2>
                         <p class="text-center text-muted">Pas encore membre ?<a href="inscription.php">Inscrivez vous ici.</a>. </p>
 
-                        <form action="../back/login_back.php" method="post" >
+                        <form action="../back/enterEmail.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Adresse mail</label>
