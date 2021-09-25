@@ -42,19 +42,26 @@
                                     <label for="">Adresse mail</label>
                                     <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
                                 </div>
+
                                 <div class="col-md-12">
                                     <label for="">Mot de passe</label>
                                     <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required> <br>
                                 </div>
+
+                                <div>
+                                  <a href="/Projet_hopital/forms/mdpOublie.php"/>Mot de passe oublié ?</a>
+                                </div>
+
                                 <div>
                                     <button type="submit" class="btninsc">Se connecter</button>
                                 </div>
+
+                             </div>
                         </form>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </section>
 <footer class="footer text-faded text-center py-5">
     <div class="container"><p class="m-0 small">Copyright &copy; Your Website 2021</p></div>
