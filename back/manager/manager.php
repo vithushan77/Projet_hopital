@@ -16,8 +16,8 @@ class manager {
   public function signIn($signin) {
     $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE mail=:mail AND mdp =:mdp');
     $sql->execute(array(
-      $signin->getMail(),
-      $signin->getMdp()
+      'mail'=>$signin->getMail(),
+      'mdp'=>$signin->getMdp()
     ));
     $rslt = $sql->fetch();
 
@@ -48,7 +48,7 @@ class manager {
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>$u->getMdp(),
+        'mdp'=>md5($u->getMdp()),
         'role'=>$u->getRole()
     ));
       return 1;
@@ -76,6 +76,20 @@ class manager {
       'id'=>$id
     ));
     return $id;
+  }
+
+  public function saisirMail(User $mail) {
+    $sql = $this->connexionBdd()->prepare('SELECT mail FROM user WHERE mail=:mail');
+    $sql->execute(array('mail'=>$mail));
+    return $mail;
+  }
+
+  public function nouveauMdp(User $u) {
+    $sql = $this->connexionBdd()->prepare('UPDATE user SET :mdp WHERE mail=:mail');
+    $sql->execute(array(
+      'mail'=>$u->getMail(),
+      'mdp'=>$u->getMdp()
+    ));
   }
 
 
