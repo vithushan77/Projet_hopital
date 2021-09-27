@@ -30,24 +30,27 @@
                 <div class="col-xl-9 col-lg-10 mx-auto">
                     <div class="bg-faded rounded p-5">
                         <h2 class="section-heading mb-4">
-                            <span style="text-align: center" class="section-heading-upper">Mot de passe oublié ?</span>
+                            <span style="text-align: center" class="section-heading-upper">Problèmes de connexion ?</span>
                         </h2>
                             <span class="section-heading-upper"></span>
                         </h2>
                         <p class="text-center text-muted">Pas encore membre ?<a href="inscription.php">Inscrivez vous ici.</a>. </p>
+                        <p class="text-center text-muted">Veuillez saisir votre adresse mail, nous vous enverrons un lien pour récupérer votre compte.</p>
 
-                        <form action="../back/enterEmail.php" method="post" >
+                        <form action="../back/enterMail.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Adresse mail</label>
                                     <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
                                 </div>
-
-                                <div>
-                                    <button type="submit" class="btninsc">Valider</button>
-                                </div>
-
                              </div>
+
+                             <div class="form-group row">
+                               <div class="">
+                                   <button type="submit" class="btninsc">Valider</button>
+                               </div>
+                             </div>
+
                         </form>
                       </div>
                     </div>
