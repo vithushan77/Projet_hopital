@@ -1,5 +1,8 @@
 <?php
 
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
+
 class manager {
 
 //Connexion à la base de données
@@ -48,7 +51,7 @@ class manager {
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>md5($u->getMdp()),
+        'mdp'=>crypt($u->getMdp()),
         'role'=>$u->getRole()
     ));
       return 1;
@@ -80,8 +83,8 @@ class manager {
 
   public function saisirMail(User $mail) {
     $sql = $this->connexionBdd()->prepare('SELECT mail FROM user WHERE mail=:mail');
-    $sql->execute(array('mail'=>$mail));
-    return $mail;
+    $sql->execute(array('mail'=>$mail->getMail()));
+    $sql->fetch();
   }
 
   public function nouveauMdp(User $u) {
