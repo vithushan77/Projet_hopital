@@ -62,14 +62,13 @@ class manager {
   }
 
   public function modifierProfil(User $u) {
-    $sql = $this->connexionBdd()->prepare('UPDATE projet_hopital SET :nom, :prenom, :mail, :mdp, :role WHERE id=:id');
+    $sql = $this->connexionBdd()->prepare('UPDATE projet_hopital SET nom=:nom, nom_usage:=nomusage, prenom=:prenom, mail=:mail WHERE id=:id');
     $sql->execute(array(
       'id'=>$u->getId(),
       'nom'=>$u->getNom(),
+      'nom_usage'=>$u=>getNom_usage(),
       'prenom'=>$u->getPrenom(),
       'mail'=>$u->getMail(),
-      'mdp'=>$u->getMdp(),
-      'role'=>$u->getRole()
     ));
   }
 
