@@ -72,6 +72,13 @@ class manager {
     ));
   }
 
+  public function modifyPwd(User $u) {
+    $sql = $this->connexionBdd()->prepare('UPDATE projet_hopital SET mdp=:mdp WHERE id=:id');
+    $sql->execute(array(
+      'mdp'=>$u->getMdp()
+    ));
+  }
+
   public function afficherInfoProfil($id) {
     $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE id=:id');
     $sql->execute(array(
