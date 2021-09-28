@@ -66,7 +66,7 @@ class manager {
     $sql->execute(array(
       'id'=>$u->getId(),
       'nom'=>$u->getNom(),
-      'nom_usage'=>$u=>getNom_usage(),
+      'nom_usage'=>$u->getNom_usage(),
       'prenom'=>$u->getPrenom(),
       'mail'=>$u->getMail(),
     ));
