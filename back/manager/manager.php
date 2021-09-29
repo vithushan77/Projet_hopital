@@ -51,7 +51,7 @@ class manager {
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>crypt($u->getMdp()),
+        'mdp'=>$u->getMdp(),
         'role'=>$u->getRole()
     ));
       return 1;
