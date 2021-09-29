@@ -51,7 +51,7 @@ class manager {
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>$u->getMdp(),
+        'mdp'=>$u->crypt(getMdp()),
         'role'=>$u->getRole()
     ));
       return 1;
@@ -88,7 +88,7 @@ class manager {
   }
 
   public function saisirMail(User $mail) {
-    $sql = $this->connexionBdd()->prepare('SELECT mail FROM user WHERE mail=:mail');
+    $sql = $this->connexionBdd()->prepare('SELECT COUNT(mail) FROM user WHERE mail=:mail');
     $sql->execute(array('mail'=>$mail->getMail()));
     $sql->fetch();
   }

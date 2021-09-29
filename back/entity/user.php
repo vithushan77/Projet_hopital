@@ -99,7 +99,7 @@ public function hydrate($donnees)
 
   public function setMdp($mdp)
   {
-    $this->mdp = crypt($mdp);
+    $this->mdp = $mdp;
   }
 
   public function getRole()
