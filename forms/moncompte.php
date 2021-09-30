@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Création de compte HSP</title>
+        <title>Compte HSP</title>
         <link rel="icon" type="image/x-icon" href="/Projet_hopital/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@
                                 </h2>
                                 <p class="text-center text-muted">Vous pouvez à tout moment changer les informations de votre compte en cas d'erreur de saisie.</p>
 
-                                <form action="../back/add_user.php" method="post" >
+                                <form action="../back/modifier.php" method="post" >
                                   <div class="form-group row">
                                     <div class="col-md-6">
                                       <input type="hidden" name="id" value="<?php echo $_POST['id']; ?>">
