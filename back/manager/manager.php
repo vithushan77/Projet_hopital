@@ -102,10 +102,12 @@ class manager {
   }
 
   public function nouveauMdp(User $u) {
-    $sql = $this->connexionBdd()->prepare('UPDATE user SET :mdp WHERE mail=:mail');
+    $option = ['cost' => 15];
+    $hashedPwd = password_hash($u->getMdp(), PASSWORD_DEFAULT, $option);
+    $sql = $this->connexionBdd()->prepare('UPDATE user SET mdp=:mdp WHERE mail=:mail');
     $result = $sql->execute(array(
       'mail'=>$u->getMail(),
-      'mdp'=>$u->getMdp()
+      'mdp'=>$hashedPwd
     ));
   }
 
