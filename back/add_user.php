@@ -8,11 +8,6 @@ session_start();
 $new_user = new user($_POST);
 $manager = new manager();
 $new_user->setRole('patient');
-$result = $manager->insertUser($new_user);
-if($result) {
-  header('Location: ../forms/connexion.php');
-} else {
-  header('Location: ../forms/inscription.php');
-}
+$manager->insertUser($new_user);
 
  ?>

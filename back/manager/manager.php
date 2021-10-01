@@ -17,32 +17,38 @@ class manager {
   }
 
   public function signIn($signin) {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE mail=:mail AND mdp =:mdp');
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE mail=:mail AND mdp=:mdp');
     $sql->execute(array(
       'mail'=>$signin->getMail(),
       'mdp'=>$signin->getMdp()
     ));
-    $rslt = $sql->fetch();
+    $result = $sql->fetch();
 
-    if($rslt) {
-      $user = new user ($rslt);
-      return $user;
-    }
-
-    else {
-      return null;
+    $isPwdCorrect = password_verify($signin->getMdp(), $result['mdp']);
+    if($isPwdCorrect) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 
   public function insertUser(User $u) {
-    $sql = $this->connexionBdd()->prepare('SELECT nom, prenom FROM user WHERE nom=:nom AND prenom=:prenom');
+    $sql = $this->connexionBdd()->prepare('SELECT COUNT(*) as nbEmail FROM user WHERE mail=:mail');
     $sql->execute(array(
-      'nom'=>$u->getNom(),
-      'prenom'=>$u->getPrenom()
+      'mail'=>$u->getMail()
     ));
-    $rslt = $sql->fetch();
+    $ifemailexists = $sql->fetch();
 
-    if($rslt == false) {
+    $request = $this->connexionBdd()->prepare('SELECT COUNT(*) as nbMdp FROM user WHERE mdp=:mdp');
+    $request->execute(array(
+      'mdp'=>$u->getMdp()
+    ));
+    $ifpwdexists = $request->fetch();
+
+    $option = ['cost' => 15];
+    $hashedPwd = password_hash($u->getMdp(), PASSWORD_DEFAULT, $option);
+
+    if($ifemailexists['nbEmail'] == 0 AND $ifpwdexists['nbMdp'] == 0) {
       $sql = $this->connexionBdd()->prepare("INSERT INTO user (nom, nom_usage, prenom, sexe, mail, mdp, role)
       VALUES(:nom, :nom_usage, :prenom, :sexe, :mail, :mdp, :role)");
       $sql->execute(array(
@@ -51,18 +57,20 @@ class manager {
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>$u->crypt(getMdp()),
+        'mdp'=>$hashedPwd,
         'role'=>$u->getRole()
     ));
-      return 1;
+      echo '<body onLoad="alert(\'Compte créé avec succès\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
     }
     else{
-      return 0;
+      echo '<body onLoad="alert(\'Adresse mail ou mot de passe déjà existants\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/inscription.php">';
     }
   }
 
   public function modifierProfil(User $u) {
-    $sql = $this->connexionBdd()->prepare('UPDATE projet_hopital SET nom=:nom, nom_usage=:nom_usage, prenom=:prenom, mail=:mail WHERE id=:id');
+    $sql = $this->connexionBdd()->prepare('UPDATE user SET nom=:nom, nom_usage=:nom_usage, prenom=:prenom, mail=:mail WHERE id=:id');
     $sql->execute(array(
       'id'=>$u->getId(),
       'nom'=>$u->getNom(),
@@ -73,7 +81,7 @@ class manager {
   }
 
   public function modifyPwd(User $u) {
-    $sql = $this->connexionBdd()->prepare('UPDATE projet_hopital SET mdp=:mdp WHERE id=:id');
+    $sql = $this->connexionBdd()->prepare('UPDATE user SET mdp=:mdp WHERE id=:id');
     $sql->execute(array(
       'mdp'=>$u->getMdp()
     ));
@@ -88,14 +96,14 @@ class manager {
   }
 
   public function saisirMail(User $mail) {
-    $sql = $this->connexionBdd()->prepare('SELECT COUNT(mail) FROM user WHERE mail=:mail');
+    $sql = $this->connexionBdd()->prepare('SELECT COUNT(*) as nb FROM user WHERE mail=:mail');
     $sql->execute(array('mail'=>$mail->getMail()));
     $sql->fetch();
   }
 
   public function nouveauMdp(User $u) {
     $sql = $this->connexionBdd()->prepare('UPDATE user SET :mdp WHERE mail=:mail');
-    $sql->execute(array(
+    $result = $sql->execute(array(
       'mail'=>$u->getMail(),
       'mdp'=>$u->getMdp()
     ));
