@@ -60,6 +60,7 @@
                                       <label for="">Sexe</label>
                                       <select name="sexe" class="form-control" required>
                                         <optgroup label="">
+                                          <option value="--/--">--/--</option>
                                           <option value="homme">HOMME</option>
                                           <option value="femme">FEMME</option>
                                         </optgroup>
