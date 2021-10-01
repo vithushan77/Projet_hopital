@@ -2,6 +2,7 @@
 
 session_start();
 session_destroy();
-header('Location: ../index.php');
+echo '<body onLoad="alert(\'Vous êtes maintenant déconnecté(e)\')">';
+echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/index.php">';
 
  ?>
