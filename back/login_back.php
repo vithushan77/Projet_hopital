@@ -8,6 +8,7 @@ $manager = new manager();
 $res = $manager->signIn($connexion);
 session_start();
 $_SESSION['user'] = serialize($res);
-header('Location: ../index.php');
+echo '<body onLoad="alert(\'Bienvenue dans votre espace\')">';
+echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/index.php">';
 
  ?>
