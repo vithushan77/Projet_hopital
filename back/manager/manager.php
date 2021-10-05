@@ -87,12 +87,13 @@ class manager {
     ));
   }
 
-  public function afficherInfoProfil($id) {
+  public function afficherInfoProfil(User $u) {
     $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE id=:id');
     $sql->execute(array(
-      'id'=>$id
+      'id'=>$u->getId()
     ));
-    return $id;
+    $sql->fetch();
+    return $sql;
   }
 
   public function saisirMail(User $mail) {
