@@ -9,7 +9,7 @@ class user {
   private $sexe;
   private $mail;
   private $mdp;
-  private $role;
+  private $statut;
 
   /**
  * constructeur de la classe user.
@@ -102,14 +102,14 @@ public function hydrate($donnees)
     $this->mdp = $mdp;
   }
 
-  public function getRole()
+  public function getStatut()
   {
-    return $this->role;
+    return $this->statut;
   }
 
-  public function setRole($role)
+  public function setStatut($statut)
   {
-    $this->role = $role;
+    $this->statut = $statut;
   }
 }
 

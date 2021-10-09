@@ -47,11 +47,6 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                      <label for="">Nom d'usage</label>
-                                      <input type="text" class="form-control" name="nom_usage">
-                                    </div>
-
-                                    <div class="col-md-6">
                                       <label for="">Prénom</label>
                                       <input type="text" class="form-control" name="prenom" required>
                                     </div>
@@ -67,10 +62,23 @@
                                       </select>
                                     </div>
 
+                                      <div class="col-md-4">
+                                          <label for="">Statut</label>
+                                          <select name="statut" class="form-control" required>
+                                              <optgroup label="">
+                                                  <option value="--/--">--/--</option>
+                                                  <option value="medecin">Médecin</option>
+                                                  <option value="patient">Patient</option>
+                                              </optgroup>
+                                          </select>
+                                      </div>
+
                                     <div class="col-md-12">
                                       <label for="">Adresse mail</label>
                                       <input type="email" class="form-control" name="mail" required>
                                     </div>
+
+
 
                                     <div class="col-md-12">
                                       <label for="">Créer un mot de passe</label>

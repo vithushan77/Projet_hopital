@@ -2,6 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
+session_start();
 
 class manager {
 
@@ -16,56 +17,52 @@ class manager {
     return $db;
   }
 
-  public function signIn($signin) {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE mail=:mail AND mdp=:mdp');
+  public function signIn($u) {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM utilisateur WHERE mail = :mail');
     $sql->execute(array(
-      'mail'=>$signin->getMail(),
-      'mdp'=>$signin->getMdp()
+      'mail'=>$u->getMail()
     ));
     $result = $sql->fetch();
-
-    $isPwdCorrect = password_verify($signin->getMdp(), $result['mdp']);
-    if($isPwdCorrect) {
-      return 1;
-    } else {
-      return 0;
+    if ($result['statut'] == "admin") {
+      $_SESSION['mail'] = $u->getMail();
+      $_SESSION['statut'] = $result['statut'];     // Si la colonne id = 1, on le redirige vers le panel_admin
+      header('Location: ../../vue/admin/panel_admin.php ');
+    }
+    elseif(password_verify($u->getMdp(), $result['mdp'])) { // On décrypte le mot de passe, et on vérifie qu'il correspond au POST['pwd']
+      $_SESSION['statut'] = $result['statut'];
+      $_SESSION['email'] = $u->getMail();
+      echo '<body onLoad="alert(\'Bienvenue sur votre compte\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/index.php">';
+    }
+    else {
+      echo '<body onLoad="alert(\'Mot de passe ou mail incorrect !\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
     }
   }
 
   public function insertUser(User $u) {
-    $sql = $this->connexionBdd()->prepare('SELECT COUNT(*) as nbEmail FROM user WHERE mail=:mail');
-    $sql->execute(array(
-      'mail'=>$u->getMail()
-    ));
-    $ifemailexists = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('SELECT mail FROM utilisateur WHERE mail = :mail');
+    $sql->execute(array('mail'=>$u->getMail()));
+    $res = $sql->fetch();
+    if($res)
+    {
+      echo '<body onLoad="alert(\'Adresse mail déjà utilisée\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/inscription.php">';
+    }
 
-    $request = $this->connexionBdd()->prepare('SELECT COUNT(*) as nbMdp FROM user WHERE mdp=:mdp');
-    $request->execute(array(
-      'mdp'=>$u->getMdp()
-    ));
-    $ifpwdexists = $request->fetch();
-
-    $option = ['cost' => 15];
-    $hashedPwd = password_hash($u->getMdp(), PASSWORD_DEFAULT, $option);
-
-    if($ifemailexists['nbEmail'] == 0 AND $ifpwdexists['nbMdp'] == 0) {
-      $sql = $this->connexionBdd()->prepare("INSERT INTO user (nom, nom_usage, prenom, sexe, mail, mdp, role)
-      VALUES(:nom, :nom_usage, :prenom, :sexe, :mail, :mdp, :role)");
+    else{
+      $sql = $this->connexionBdd()->prepare("INSERT INTO utilisateur (nom, prenom, sexe, mail, mdp, statut)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)");
       $sql->execute(array(
         'nom'=>$u->getNom(),
-        'nom_usage'=>$u->getNom_usage(),
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
-        'mdp'=>$hashedPwd,
-        'role'=>$u->getRole()
+        'mdp'=>$u->getMdp(),
+        'statut'=>$u->getStatut()
     ));
       echo '<body onLoad="alert(\'Compte créé avec succès\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
-    }
-    else{
-      echo '<body onLoad="alert(\'Adresse mail ou mot de passe déjà existants\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/inscription.php">';
     }
   }
 

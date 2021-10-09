@@ -23,6 +23,7 @@
 </header>
 <!-- Navbar-->
 <?php include '../include/header.php'; ?>
+<br><br>
 <section class="page-section about-heading">
     <div class="container">
         <div class="about-heading-content">
