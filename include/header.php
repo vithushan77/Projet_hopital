@@ -22,9 +22,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
               <?php
               if(empty($_SESSION['user'])) {
                ?>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Home</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/about.php">About</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/products.php">Products</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Accueil</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/medecins.php">Nos médecins</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/locaux.php">Nos locaux</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/store.php">Store</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/inscription.php">Espace utilisateur</a></li>
