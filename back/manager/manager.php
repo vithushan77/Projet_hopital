@@ -30,7 +30,7 @@ class manager {
     }
     elseif(password_verify($u->getMdp(), $result['mdp'])) { // On décrypte le mot de passe, et on vérifie qu'il correspond au POST['pwd']
       $_SESSION['statut'] = $result['statut'];
-      $_SESSION['email'] = $u->getMail();
+      $_SESSION['mail'] = $u->getMail();
       echo '<body onLoad="alert(\'Bienvenue sur votre compte\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/index.php">';
     }
@@ -67,14 +67,21 @@ class manager {
   }
 
   public function modifierProfil(User $u) {
-    $sql = $this->connexionBdd()->prepare('UPDATE user SET nom=:nom, nom_usage=:nom_usage, prenom=:prenom, mail=:mail WHERE id=:id');
-    $sql->execute(array(
-      'id'=>$u->getId(),
+    $sql = $this->connexionBdd()->prepare('UPDATE utilisateur SET nom=:nom, prenom=:prenom, mail=:mail, sexe=:sexe WHERE id=:id');
+    $res = $sql->execute(array(
       'nom'=>$u->getNom(),
-      'nom_usage'=>$u->getNom_usage(),
       'prenom'=>$u->getPrenom(),
       'mail'=>$u->getMail(),
+      'sexe'=>$u->getSexe(),
+      'id'=>$u->getId()
     ));
+    if($res) {
+      echo '<body onLoad="alert(\'Informations enregistrées\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
+    } else {
+      echo '<body onLoad="alert(\'Enregistrements non valides ! Veuillez réessayer ultérieurement !\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
+    }
   }
 
   public function modifyPwd(User $u) {
@@ -84,13 +91,13 @@ class manager {
     ));
   }
 
-  public function afficherInfoProfil(User $u) {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM user WHERE id=:id');
+  public function afficherInfoProfil($mail) {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM utilisateur WHERE mail=:mail');
     $sql->execute(array(
-      'id'=>$u->getId()
+      'mail'=>$mail
     ));
-    $sql->fetch();
-    return $sql;
+    $result = $sql->fetch();
+    return $result;
   }
 
   public function saisirMail(User $mail) {

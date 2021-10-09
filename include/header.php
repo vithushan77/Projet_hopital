@@ -18,7 +18,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
               <?php
-              if(empty($_SESSION['email'])) {
+              if(empty($_SESSION['mail'])) {
                ?>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Accueil</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/medecins.php">Nos médecins</a></li>
@@ -27,7 +27,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/inscription.php">Espace utilisateur</a></li>
               <?php }
-                if(isset($_SESSION['email'])) {
+                if(isset($_SESSION['mail'])) {
                   ?>
                   <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Home</a></li>
                   <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
