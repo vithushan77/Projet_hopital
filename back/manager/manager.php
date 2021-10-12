@@ -123,6 +123,12 @@ class manager {
     return $result;
   }
 
+  public function displayUser() {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM utilisateur');
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+  }
 
 }
 
