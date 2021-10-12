@@ -55,7 +55,7 @@ $results = $manager->displayUser();
                                     <label for="">Choisir l'heure :</label>
                                     <select name="heure">
                                         <?php foreach ($res as $value){ ?>
-                                            <option value="<?= $value['heure']?>>"><?= $value['heure']?></option>
+                                            <option value="<?= $value['heure']?>"><?= $value['heure']?></option>
                                         <?php  } ?>
                                     </select> <br>
                                 </div>

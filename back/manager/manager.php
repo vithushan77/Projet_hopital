@@ -165,16 +165,22 @@ class manager {
         "nom"=>$_POST['utilisateur']
     ]);
     $resultpatient = $sql->fetch();
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE statut=medecin AND mail=:mail');
+
+    var_dump($resultpatient);
+
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE statut="medecin" AND mail=:mail');
     $sql->execute([
         'mail'=>$_SESSION['mail']
     ]);
     $resultmedecin = $sql->fetch();
+    var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
         'heure'=>$_POST['heure']
     ]);
     $resultheure = $sql->fetch();
+    var_dump($resultheure);
+    exit;
     $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
       VALUES(:id_utilisateur, :id_heure, :id_medecin)');
     $res = $sql->execute([
@@ -182,7 +188,7 @@ class manager {
         'id_utilisateur'=>$resultpatient,
         'id_heure'=>$resultheure
     ]);
-    $resultmedecin = $sql->fetch();
+
 
     if($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
