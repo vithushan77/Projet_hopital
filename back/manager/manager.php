@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier.php');
 session_start();
 
 class manager {
@@ -139,8 +140,10 @@ class manager {
 
   public function ajoutDossierAdmission(Dossier $folder) {
     $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
-    VALUES (:date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
+    VALUES (:nom, :prenom, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
+      'nom'=>$folder->getNom(),
+      'prenom'=>$folder->getPrenom(),
       'date_naissance'=>$folder->getDate_naissance(),
       'adresse_post'=>$folder->getAdresse_post(),
       'mutuelle'=>$folder->getMutuelle(),
