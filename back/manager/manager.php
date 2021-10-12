@@ -130,6 +130,32 @@ class manager {
 
   }
 
+  public function displayUser() {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM utilisateur');
+    $sql->execute();
+    $result = $sql->fetchAll();
+    return $result;
+  }
+
+  public function ajoutDossierAdmission(Dossier $folder) {
+    $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
+    VALUES (:date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
+    $res = $sql->execute(array(
+      'date_naissance'=>$folder->getDate_naissance(),
+      'adresse_post'=>$folder->getAdresse_post(),
+      'mutuelle'=>$folder->getMutuelle(),
+      'optn'=>$folder->getOptn(),
+      'regime'=>$folder->getRegime(),
+    ));
+    if($res) {
+      echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
+    }
+    else {
+      echo '<body onLoad="alert(\'Veuillez remplir les champs du formulaire\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
+    }
+  }
 
 }
 
