@@ -116,6 +116,13 @@ class manager {
     ));
   }
 
+  public function displayHours() {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM heure_rdv');
+    $sql->execute();
+    $result = $sql->fetch();
+    return $result;
+  }
+
 
 }
 
