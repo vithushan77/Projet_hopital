@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/Projet_hopital/css/styles.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 <body>
 <header>
@@ -26,6 +28,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
+$med = $manager->lemedecin();
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -42,21 +45,30 @@ $res = $manager->displayHours();
                         <form action="../back/login_back.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="">Choisir l'heure :</label>
-                                    <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
+                                    <label for="">Choisissez votre medecin:</label>
+                                        <select class="selectrdv">
+                                            <?php
+                                            foreach ($med as $value1){?>
+                                                <option value="<?php echo $value1['nom_medecin'];?>"><?php echo $value1['nom_medecin'];?></option>
+
+                                            <?php }?>
+                                        </select>
+                                    </form>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label for="">Mot de passe</label>
-                                    <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required> <br>
-                                </div>
+                                    <label for="">choisir l'heure du RDV</label>
+                                    <select name="rdvpatiant" class="selectrdv">
+                                        <?php
+                                        foreach ($res as $value){?>
+                                            <option value="<?php echo $value['nom_heure'];?>"><?php echo $value['nom_heure'];?></option>
 
-                                <div>
-                                    <a href="/Projet_hopital/forms/mdpOublie.php"/>Mot de passe oublié ?</a>
+                                        <?php }?>
+                                    </select>
+                                    <br>
                                 </div>
-
                                 <div>
-                                    <button type="submit" class="btninsc">Se connecter</button>
+                                    <button id="buttonrdv" type="submit" class="btninsc">Prendre RDV</button>
                                 </div>
 
                             </div>
@@ -69,7 +81,9 @@ $res = $manager->displayHours();
 <?php include '../include/footer.php'; ?>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Core theme JS-->
-<script src="/Projet_hopital/js/scripts.js"></script>
+<script src="../js/scripts.js"></script>
 </body>
 </html>

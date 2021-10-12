@@ -1,5 +1,4 @@
 <?php
-
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
 session_start();
@@ -10,6 +9,7 @@ class manager {
   public function connexionBdd() {
     try {
       $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
+
     }
     catch(Exception $e) {
       die('Error:' .$e->getMessage());
@@ -121,6 +121,13 @@ class manager {
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
+  }
+  public function lemedecin(){
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM medecin');
+    $sql->execute();
+    $result = $sql->fetchAll();
+    return $result;
+
   }
 
   public function displayUser() {
