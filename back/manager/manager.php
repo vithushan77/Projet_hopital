@@ -117,7 +117,7 @@ class manager {
   }
 
   public function displayHours() {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM heure_rdv');
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM heure');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
@@ -157,6 +157,19 @@ class manager {
       echo '<body onLoad="alert(\'Veuillez remplir les champs du formulaire\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
     }
+  }
+
+  public function priseRDV($infordv){
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom');
+    $sql->execute([
+        "nom"=>$_POST['utilisateur']
+    ]);
+    $resultpatient = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE nom=:nom');
+    $sql->execute(['']);
+
+
+
   }
 
 }
