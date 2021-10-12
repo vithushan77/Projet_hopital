@@ -37,6 +37,7 @@
                     <div class="row">
                         <div class="col-xl-9 col-lg-10 mx-auto">
                             <div class="bg-faded rounded p-5">
+                              <a href="/Projet_hopital/forms/moncompte.php"/>Retour</a></p>
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Création du dossier d'admission</span>
                                 </h2>
@@ -107,6 +108,8 @@
                                       <div>
                                           <br>
                                           <button type="submit" class="btninsc">Valider</button>
+                                          <button type="reset" class="btninsc">Réinitialiser</button>
+
                                       </div>
                                 </form>
                             </div>
