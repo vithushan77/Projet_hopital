@@ -193,6 +193,25 @@ class manager {
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
     }
   }
+
+  public function getNombySession(){
+    $sql = $this->connexionBdd()->prepare('SELECT id from utilisateur where mail=:mail');
+    $sql->execute(array(
+        'mail'=>$_SESSION['mail']));
+    $res=$sql->fetch();
+    return $res;
+
+
+  }
+  public function ajtrdv($poitement){
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv(id_utilisateur, id_medecin, id_heure)value (:id_utilisateur, :id_medecin, :id_heure)');
+    $sql->execute(array(
+        'id_utilisateur'=>$poitement->getId_utilisateur(),
+        'id_medecin'=>$poitement->getId_medecin(),
+        'id_heure'=>$poitement->getId_heure()
+    ));
+
+  }
 }
 ?>
 
