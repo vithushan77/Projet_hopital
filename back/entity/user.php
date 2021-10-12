@@ -96,7 +96,6 @@ public function hydrate($donnees)
   {
     return $this->mdp;
   }
-
   public function setMdp($mdp)
   {
     $this->mdp = $mdp;

@@ -40,7 +40,7 @@ $results = $manager->displayUser();
                         </h2>
                         <span class="section-heading-upper"></span>
                         </h2>
-                        <form action="../back/login_back.php" method="post" >
+                        <form action="../back/prendreRDV.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Choisir le patient :</label>
@@ -52,10 +52,10 @@ $results = $manager->displayUser();
                                 </div>
                                 <br><br>
                                 <div class="col-md-12">
-                                    <label for="">Choisir le patient :</label>
+                                    <label for="">Choisir l'heure :</label>
                                     <select name="heure">
                                         <?php foreach ($res as $value){ ?>
-                                            <option value="<?= $value['nom_heure']?>>"><?= $value['nom_heure']?></option>
+                                            <option value="<?= $value['heure']?>>"><?= $value['heure']?></option>
                                         <?php  } ?>
                                     </select> <br>
                                 </div>

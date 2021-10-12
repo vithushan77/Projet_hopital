@@ -37,12 +37,14 @@
                     <div class="row">
                         <div class="col-xl-9 col-lg-10 mx-auto">
                             <div class="bg-faded rounded p-5">
+                              <a href="/Projet_hopital/forms/moncompte.php"/>Retour</a></p>
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Création du dossier d'admission</span>
                                 </h2>
-                                <p class="text-center text-muted">Vous pouvez à tout moment changer les informations de votre compte en cas d'erreur de saisie.</p>
+                                <p class="text-center text-muted">La constitution de votre dossier permettra d'accéder aux différents services de l'établissement.
+                                  Assurez-vous que vous fournissez bien les informations pour pouvoir être pris(e) en charge.</p>
 
-                                <form action="../back/modifier.php" method="post">
+                                <form action="../back/ajoutDossier.php" method="post">
                                   <div class="form-group row">
 
                                       <div class="col-md-12">
@@ -61,7 +63,8 @@
 
                                       <div class="col-md-6">
                                           <label for="">Date de naissance</label>
-                                          <input type="date" class="form-control" name="date_naissance" required>
+                                          <input type="date" class="form-control" name="date_naissance"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                          <span class="validity"></span>
                                       </div>
 
                                     <div class="col-md-12">
@@ -69,29 +72,45 @@
                                       <input type="text" class="form-control" name="adresse_post" required>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                       <label for="">Mutuelle</label>
                                       <input type="text" class="form-control" name="mutuelle" required>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                       <label for="">Numéro de sécurité sociale</label>
                                       <input type="text" class="form-control" name="num_ss" required>
                                     </div>
 
-                                    <div class="col-md-12">
-                                      <label for="">Option</label> //liste déroulante
-                                      <input type="text" class="form-control" name="optn" required>
+                                    <div class="col-md-4">
+                                      <label for="">Option</label>
+                                      <select name="optn" class="form-control" required>
+                                        <optgroup label="">
+                                          <option value="Aucun">Aucun</option>
+                                          <option value="Tele">Télé</option>
+                                          <option value="Wifi">Wifi</option>
+                                        </optgroup>
+                                      </select>
                                     </div>
 
-                                    <div class="col-md-12">
-                                      <label for="">Régime</label> //liste déroulante
-                                      <input type="text" class="form-control" name="regime" required>
+                                    <div class="col-md-4">
+                                      <label for="">Régime</label>
+                                      <select name="sexe" class="form-control" required>
+                                        <optgroup label="">
+                                          <option value="Aucun">Aucun</option>
+                                          <option value="Végétarien">Végétarien</option>
+                                          <option value="Végétalien">Végétalien</option>
+                                          <option value="Pescetarien">Pescetarien</option>
+                                          <option value="Flexitarien">Flexitarien</option>
+                                        </optgroup>
+                                      </select>
                                     </div>
 
                                       <div>
                                           <br>
                                           <button type="submit" class="btninsc">Valider</button>
+                                          <button type="reset" class="btninsc">Réinitialiser</button>
+
                                       </div>
                                 </form>
                             </div>

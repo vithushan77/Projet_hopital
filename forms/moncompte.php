@@ -40,7 +40,7 @@
                                 <h2 class="section-heading mb-4">
                                     <span class="section-heading-upper">Informations du compte</span>
                                 </h2>
-                                <p class="text-center text-muted">Vous pouvez à tout moment changer les informations de votre compte en cas d'erreur de saisie.</p>
+                                <p class="text-center text-muted">Vous pouvez à tout moment changer les informations de votre compte en cas d'erreur de saisie. <a href="/Projet_hopital/forms/dossierAdmission.php"/>Cliquez ici pour constituer votre dossier.</a></p>
 
                                 <form action="../back/modifier.php" method="post">
                                   <div class="form-group row">

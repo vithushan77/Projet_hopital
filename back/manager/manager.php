@@ -117,7 +117,7 @@ class manager {
   }
 
   public function displayHours() {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM heure_rdv');
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM heure');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
@@ -139,13 +139,15 @@ class manager {
 
   public function ajoutDossierAdmission(Dossier $folder) {
     $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
-    VALUES (:date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
+    VALUES (:nom, :prenom, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
+      'nom'=>$folder->getNom(),
+      'prenom'=>$folder->getPrenom(),
       'date_naissance'=>$folder->getDate_naissance(),
       'adresse_post'=>$folder->getAdresse_post(),
       'mutuelle'=>$folder->getMutuelle(),
       'optn'=>$folder->getOptn(),
-      'regime'=>$folder->getRegime(),
+      'regime'=>$folder->getRegime()
     ));
     if($res) {
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
@@ -157,6 +159,40 @@ class manager {
     }
   }
 
-}
+  public function priseRDV($infordv){
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom');
+    $sql->execute([
+        "nom"=>$_POST['utilisateur']
+    ]);
+    $resultpatient = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE statut=medecin AND mail=:mail');
+    $sql->execute([
+        'mail'=>$_SESSION['mail']
+    ]);
+    $resultmedecin = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
+    $sql->execute([
+        'heure'=>$_POST['heure']
+    ]);
+    $resultheure = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
+      VALUES(:id_utilisateur, :id_heure, :id_medecin)');
+    $res = $sql->execute([
+        'id_medecin'=>$resultmedecin,
+        'id_utilisateur'=>$resultpatient,
+        'id_heure'=>$resultheure
+    ]);
+    $resultmedecin = $sql->fetch();
 
+    if($res) {
+      echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+    else {
+      echo '<body onLoad="alert(\'Erreur dans la prise de RDV\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+  }
+}
 ?>
+
