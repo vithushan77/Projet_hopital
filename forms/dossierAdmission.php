@@ -44,7 +44,7 @@
                                 <p class="text-center text-muted">La constitution de votre dossier permettra d'accéder aux différents services de l'établissement.
                                   Assurez-vous que vous fournissez bien les informations pour pouvoir être pris(e) en charge.</p>
 
-                                <form action="../back/modifier.php" method="post">
+                                <form action="../back/ajoutDossier.php" method="post">
                                   <div class="form-group row">
 
                                       <div class="col-md-12">
@@ -63,7 +63,8 @@
 
                                       <div class="col-md-6">
                                           <label for="">Date de naissance</label>
-                                          <input type="date" class="form-control" name="date_naissance" required>
+                                          <input type="date" class="form-control" name="date_naissance"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                                          <span class="validity"></span>
                                       </div>
 
                                     <div class="col-md-12">
