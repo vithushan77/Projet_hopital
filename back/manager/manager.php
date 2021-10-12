@@ -165,13 +165,34 @@ class manager {
         "nom"=>$_POST['utilisateur']
     ]);
     $resultpatient = $sql->fetch();
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE nom=:nom');
-    $sql->execute(['']);
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE statut=medecin AND mail=:mail');
+    $sql->execute([
+        'mail'=>$_SESSION['mail']
+    ]);
+    $resultmedecin = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
+    $sql->execute([
+        'heure'=>$_POST['heure']
+    ]);
+    $resultheure = $sql->fetch();
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
+      VALUES(:id_utilisateur, :id_heure, :id_medecin)');
+    $res = $sql->execute([
+        'id_medecin'=>$resultmedecin,
+        'id_utilisateur'=>$resultpatient,
+        'id_heure'=>$resultheure
+    ]);
+    $resultmedecin = $sql->fetch();
 
-
-
+    if($res) {
+      echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+    else {
+      echo '<body onLoad="alert(\'Erreur dans la prise de RDV\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
   }
-
 }
-
 ?>
+

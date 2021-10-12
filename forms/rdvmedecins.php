@@ -40,7 +40,7 @@ $results = $manager->displayUser();
                         </h2>
                         <span class="section-heading-upper"></span>
                         </h2>
-                        <form action="../back/login_back.php" method="post" >
+                        <form action="../back/prendreRDV.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Choisir le patient :</label>
