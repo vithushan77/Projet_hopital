@@ -37,6 +37,17 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                   <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
                 <?php }
                 ?>
+                <?php
+                if($_SESSION['statut'] == "patient") {
+                  ?>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Home</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/rdvmedecins.php">Prendre un RDV</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/rdv.php">Voir vos RDV</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/moncompte.php">Mon compte</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
+                <?php }
+                ?>
             </ul>
         </div>
     </div>

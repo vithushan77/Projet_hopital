@@ -42,7 +42,7 @@ $med = $manager->lemedecin();
                         </h2>
                         <span class="section-heading-upper"></span>
                         </h2>
-                        <form action="../back/login_back.php" method="post" >
+                        <form action="../back/add_rdv_patient.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Choisissez votre medecin:</label>
@@ -57,11 +57,11 @@ $med = $manager->lemedecin();
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label for="">choisir l'heure du RDV</label>
+                                    <label for="">Choisir l'heure du RDV:</label>
                                     <select name="rdvpatiant" class="selectrdv">
                                         <?php
                                         foreach ($res as $value){?>
-                                            <option value="<?php echo $value['nom_heure'];?>"><?php echo $value['nom_heure'];?></option>
+                                            <option value="<?php echo $value['heure'];?>"><?php echo $value['heure'];?></option>
 
                                         <?php }?>
                                     </select>
@@ -84,6 +84,6 @@ $med = $manager->lemedecin();
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- Core theme JS-->
-<script src="../js/scripts.js"></script>
+<script src="/Projet_hopital/js/scripts.js"></script>
 </body>
 </html>
