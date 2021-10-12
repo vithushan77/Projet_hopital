@@ -1,7 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier.php');
 session_start();
 
 class manager {
