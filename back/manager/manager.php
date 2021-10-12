@@ -145,7 +145,7 @@ class manager {
       'adresse_post'=>$folder->getAdresse_post(),
       'mutuelle'=>$folder->getMutuelle(),
       'optn'=>$folder->getOptn(),
-      'regime'=>$folder->getRegime(),
+      'regime'=>$folder->getRegime()
     ));
     if($res) {
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
