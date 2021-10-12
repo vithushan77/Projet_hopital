@@ -26,7 +26,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
-$result = $manager->displayUser();
+$results = $manager->displayUser();
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -43,30 +43,25 @@ $result = $manager->displayUser();
                         <form action="../back/login_back.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="">Choisir l'heure :</label>
-                                    <select name="pets" id="pet-select">
-                                        <option value="">--Please choose an option--</option>
-                                        <option value="dog">Dog</option>
-                                        <option value="cat">Cat</option>
-                                        <option value="hamster">Hamster</option>
-                                        <option value="parrot">Parrot</option>
-                                        <option value="spider">Spider</option>
-                                        <option value="goldfish">Goldfish</option>
+                                    <label for="">Choisir le patient :</label>
+                                    <select name="utilisateur">
+                                        <?php foreach ($results as $value){ ?>
+                                            <option value="<?= $value['nom']?>>"><?= $value['nom']?></option>
+                                      <?php  } ?>
                                     </select>
-                                    <input type="email" class="form-control" name="mail"  minlength="4" maxlength="62" required>
                                 </div>
-
+                                <br><br>
                                 <div class="col-md-12">
                                     <label for="">Choisir le patient :</label>
-                                    <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required> <br>
+                                    <select name="heure">
+                                        <?php foreach ($res as $value){ ?>
+                                            <option value="<?= $value['nom_heure']?>>"><?= $value['nom_heure']?></option>
+                                        <?php  } ?>
+                                    </select> <br>
                                 </div>
-
                                 <div>
-                                    <a href="/Projet_hopital/forms/mdpOublie.php"/>Mot de passe oublié ?</a>
-                                </div>
-
-                                <div>
-                                    <button type="submit" class="btninsc">Se connecter</button>
+                                    <br>
+                                    <button type="submit" class="btninsc">Valider</button>
                                 </div>
 
                             </div>

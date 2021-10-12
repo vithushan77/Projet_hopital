@@ -119,14 +119,14 @@ class manager {
   public function displayHours() {
     $sql = $this->connexionBdd()->prepare('SELECT * FROM heure_rdv');
     $sql->execute();
-    $result = $sql->fetch();
+    $result = $sql->fetchAll();
     return $result;
   }
 
   public function displayUser() {
     $sql = $this->connexionBdd()->prepare('SELECT * FROM utilisateur');
     $sql->execute();
-    $result = $sql->fetch();
+    $result = $sql->fetchAll();
     return $result;
   }
 
