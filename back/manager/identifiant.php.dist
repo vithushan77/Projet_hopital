@@ -1,0 +1,6 @@
+<?php
+
+$bdd_user = "";
+$bdd_name ="";
+$bdd_password = "";
+$bdd_host="";
