@@ -29,6 +29,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
 $manager = new Manager();
 $res = $manager->displayHours();
 $med = $manager->lemedecin();
+$rdv = $manager->getLesrdv();
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -73,6 +74,24 @@ $med = $manager->lemedecin();
 
                             </div>
                         </form>
+                <br>
+                <div class="card">
+                    <h5 class="card-header">Vos Rendez-vous à venir</h5>
+                    <?php
+                    foreach ($rdv as $value2){
+                    ?>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <th>Date/Heure</th>
+                                <th>Medecin</th>
+                            </tr>
+                        </table>
+                        <p class="card-text"><?php $value2['id_medecin']?></p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                    <?php }?>
+                </div>
                     </div>
                 </div>
             </div>
