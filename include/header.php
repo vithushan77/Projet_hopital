@@ -47,15 +47,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/rdv.php">Voir vos RDV</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/moncompte.php">Mon compte</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
-                <?php }
-                ?>
-                <?php
-                if($_SESSION['statut'] == 'urgence') {
-                  ?>
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/listepatients.php">Liste des Patients</a></li>
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/moncompte.php">Mon compte</a></li>
-                  <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
-              <?php }
+                <?php }}
                 ?>
             </ul>
         </div>
