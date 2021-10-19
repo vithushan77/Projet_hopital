@@ -47,7 +47,7 @@ $rdv = $manager->getLesrdv();
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Choisissez votre medecin:</label>
-                                        <select class="selectrdv">
+                                        <select class="selectrdv" name="medecin">
                                             <?php
                                             foreach ($med as $value1){?>
                                                 <option value="<?php echo $value1['nom_medecin'];?>"><?php echo $value1['nom_medecin'];?></option>
@@ -100,7 +100,6 @@ $rdv = $manager->getLesrdv();
                             </tr>
                             </tbody>
                             </table>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                     <?php }?>
                 </div>
