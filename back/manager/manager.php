@@ -53,18 +53,33 @@ class manager {
     }
 
     else{
-      $sql = $this->connexionBdd()->prepare("INSERT INTO utilisateur (nom, prenom, sexe, mail, mdp, statut)
+      if ($u->getStatut() == "medecin");{
+        $sql = $this->connexionBdd()->prepare("INSERT INTO medecin (nom, prenom, sexe, mail, mdp)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp)");
+        $sql->execute(array(
+            'nom'=>$u->getNom(),
+            'prenom'=>$u->getPrenom(),
+            'sexe'=>$u->getSexe(),
+            'mail'=>$u->getMail(),
+            'mdp'=>$u->getMdp(),
+        ));
+        echo '<body onLoad="alert(\'Compte créé avec succès\')">';
+        echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
+      }
+      if ($u->getStatut() == "patient") {
+        $sql = $this->connexionBdd()->prepare("INSERT INTO utilisateur (nom, prenom, sexe, mail, mdp, statut)
       VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)");
-      $sql->execute(array(
-        'nom'=>$u->getNom(),
-        'prenom'=>$u->getPrenom(),
-        'sexe'=>$u->getSexe(),
-        'mail'=>$u->getMail(),
-        'mdp'=>$u->getMdp(),
-        'statut'=>$u->getStatut()
-    ));
-      echo '<body onLoad="alert(\'Compte créé avec succès\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
+        $sql->execute(array(
+            'nom' => $u->getNom(),
+            'prenom' => $u->getPrenom(),
+            'sexe' => $u->getSexe(),
+            'mail' => $u->getMail(),
+            'mdp' => $u->getMdp(),
+            'statut' => $u->getStatut()
+        ));
+        echo '<body onLoad="alert(\'Compte créé avec succès\')">';
+        echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
+      }
     }
   }
 
@@ -194,7 +209,13 @@ class manager {
     echo "heure : ". $resultheure['id'];
     echo "patient : ".$resultpatient['id'];
     echo "medecin : ".$resultmedecin['id'];
-    exit;
+
+    $sql = $this->connexionBdd()->prepare('UPDATE heure SET prise=:prise WHERE id=:id');
+    $res = $sql->execute([
+        'prise'=>1,
+        'id'=>$resultheure['id']
+    ]);
+
 
     if($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
@@ -205,6 +226,8 @@ class manager {
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
     }
   }
+
+  //SELECT utilisateur.id, prenom, nom FROM utilisateur INNER JOIN rdv ON utilisateur.id = rdv.id_utilisateur
 
   public function getNombySession(){
     $sql = $this->connexionBdd()->prepare('SELECT id from utilisateur where mail=:mail');
