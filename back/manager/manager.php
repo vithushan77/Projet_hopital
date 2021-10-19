@@ -8,7 +8,7 @@ class manager {
 //Connexion à la base de données
   public function connexionBdd() {
     try {
-      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
+      $db = new PDO('mysql:host=localhost:8889;dbname=projet_hopital;charset=utf8', 'root', 'root');
 
     }
     catch(Exception $e) {
@@ -230,10 +230,12 @@ class manager {
 
   }
   public function getLesrdv(){
-    $sql = $this->connexionBdd()->prepare('SELECT * from rdv');
+    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom,utilisateur.prenom, medecin.nom_medecin, heure.heure FROM utilisateur,medecin,heure, rdv WHERE rdv.id_medecin=medecin.id and rdv.id_heure=heure.id and utilisateur.id=rdv.id_utilisateur AND rdv.id_utilisateur=:id');
     $sql->execute(array(
         'id'=>$_SESSION['id']
     ));
+    $res=$sql->fetchAll();
+    return $res;
 
   }
 
