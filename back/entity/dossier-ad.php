@@ -1,11 +1,9 @@
 <?php
 
-class user {
+class dossier {
 
   private $id;
   private $id_patient;
-  private $nom;
-  private $prenom;
   private $date_naissance;
   private $adresse_post;
   private $mutuelle;
@@ -52,26 +50,6 @@ public function hydrate($donnees)
   public function setId_patient($id_patient)
   {
     $this->id_patient = $id_patient;
-  }
-
-  public function getNom()
-  {
-    return $this->nom;
-  }
-
-  public function setNom($nom)
-  {
-    $this->nom = $nom;
-  }
-
-  public function getPrenom()
-  {
-    return $this->prenom;
-  }
-
-  public function setPrenom($prenom)
-  {
-    $this->prenom = $prenom;
   }
 
   public function getDate_naissance()
