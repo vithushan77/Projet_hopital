@@ -87,7 +87,19 @@ $rdv = $manager->getLesrdv();
                                 <th>Medecin</th>
                             </tr>
                         </table>
-                        <p class="card-text"><?php $value2['id_medecin']?></p>
+                        <p class="card-text">
+                            <table>
+                            <tr>
+                                <td>Heure</td><br>
+                                <td>Nom</td>
+                                <td>Prenom</td>
+                                <td>Le medecin</td>
+                            </tr>
+
+                        <?= $value2['heure'],
+                            $value2['nom'],
+                        $value2['prenom'],$value2['nom_medecin'] ?></p>
+                        </table>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                     <?php }?>
