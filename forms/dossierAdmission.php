@@ -24,8 +24,6 @@
         <!-- Navbar-->
         <?php
         include '../include/header.php';
-        $manager = new manager();
-        $r = $manager->afficherInfoProfil($_SESSION['mail']);
         ?>
         <section class="page-section about-heading">
             <div class="container">
@@ -47,20 +45,6 @@
                                 <form action="../back/ajoutDossier.php" method="post">
                                   <div class="form-group row">
 
-                                      <div class="col-md-12">
-                                          <input type="hidden" class="form-control" name="id" value="<?php echo $r['id']; ?>" required>
-                                      </div>
-
-                                    <div class="col-md-6">
-                                      <label for="">Nom de naissance</label>
-                                      <input type="text" class="form-control" name="nom" value="<?php echo $r['nom']; ?>" required>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                      <label for="">Prénom</label>
-                                      <input type="text" class="form-control" name="prenom" value="<?php echo $r['prenom']; ?>" required>
-                                    </div>
-
                                       <div class="col-md-6">
                                           <label for="">Date de naissance</label>
                                           <input type="date" class="form-control" name="date_naissance"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
@@ -79,7 +63,7 @@
 
                                     <div class="col-md-6">
                                       <label for="">Numéro de sécurité sociale</label>
-                                      <input type="text" class="form-control" name="num_ss" required>
+                                      <input type="int" class="form-control" name="num_ss" required>
                                     </div>
 
                                     <div class="col-md-4">
