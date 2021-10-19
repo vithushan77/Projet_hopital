@@ -46,7 +46,7 @@ $results = $manager->displayUser();
                                     <label for="">Choisir le patient :</label>
                                     <select name="utilisateur">
                                         <?php foreach ($results as $value){ ?>
-                                            <option value="<?= $value['nom']?>>"><?= $value['nom']?></option>
+                                            <option value="<?= $value['nom']?>"><?= $value['nom']?></option>
                                       <?php  } ?>
                                     </select>
                                 </div>

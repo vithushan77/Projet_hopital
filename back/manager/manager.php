@@ -8,7 +8,7 @@ class manager {
 //Connexion à la base de données
   public function connexionBdd() {
     try {
-      $db = new PDO('mysql:host=localhost:8889;dbname=projet_hopital;charset=utf8', 'root', 'root');
+      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
 
     }
     catch(Exception $e) {
@@ -25,12 +25,14 @@ class manager {
     $result = $sql->fetch();
     if ($result['statut'] == "admin") {
       $_SESSION['mail'] = $u->getMail();
-      $_SESSION['statut'] = $result['statut'];     // Si la colonne id = 1, on le redirige vers le panel_admin
+      $_SESSION['statut'] = $result['statut'];
+      $_SESSION['id'] = $result['id']; // Si la colonne id = 1, on le redirige vers le panel_admin
       header('Location: ../../vue/admin/panel_admin.php ');
     }
     elseif(password_verify($u->getMdp(), $result['mdp'])) { // On décrypte le mot de passe, et on vérifie qu'il correspond au POST['pwd']
       $_SESSION['statut'] = $result['statut'];
       $_SESSION['mail'] = $u->getMail();
+      $_SESSION['id'] = $result['id'];
       echo '<body onLoad="alert(\'Bienvenue sur votre compte\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/index.php">';
     }
@@ -160,19 +162,21 @@ class manager {
   }
 
   public function priseRDV($infordv){
+    var_dump($_POST);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom');
     $sql->execute([
-        "nom"=>$_POST['utilisateur']
+        'nom'=>$_POST['utilisateur']
     ]);
     $resultpatient = $sql->fetch();
 
     var_dump($resultpatient);
 
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE statut="medecin" AND mail=:mail');
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE statut="medecin" AND mail=:mail');
     $sql->execute([
         'mail'=>$_SESSION['mail']
     ]);
     $resultmedecin = $sql->fetch();
+    var_dump($resultmedecin);
     var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
@@ -180,15 +184,17 @@ class manager {
     ]);
     $resultheure = $sql->fetch();
     var_dump($resultheure);
-    exit;
     $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
-      VALUES(:id_utilisateur, :id_heure, :id_medecin)');
+      VALUES (:id_utilisateur, :id_heure, :id_medecin)');
     $res = $sql->execute([
-        'id_medecin'=>$resultmedecin,
-        'id_utilisateur'=>$resultpatient,
-        'id_heure'=>$resultheure
+        'id_medecin'=>$resultmedecin['id'],
+        'id_utilisateur'=>$resultpatient['id'],
+        'id_heure'=>$resultheure['id']
     ]);
-
+    echo "heure : ". $resultheure['id'];
+    echo "patient : ".$resultpatient['id'];
+    echo "medecin : ".$resultmedecin['id'];
+    exit;
 
     if($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
