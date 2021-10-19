@@ -139,17 +139,22 @@ class manager {
     return $result;
   }
 
-  public function ajoutDossierAdmission(Dossier $folder) {
-    $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
-    VALUES (:nom, :prenom, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
+  public function ajoutDossierAdmission(User $u, Dossier $dossier) {
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
+    $sql->execute(array(
+      'nom'=>$u->getNom(),
+      'prenom'=>$u->getPrenom()
+    ));
+    $sql->fetch();
+    $dossier->setId_patient($sql['id']);
+    $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
+    VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
-      'nom'=>$folder->getNom(),
-      'prenom'=>$folder->getPrenom(),
-      'date_naissance'=>$folder->getDate_naissance(),
-      'adresse_post'=>$folder->getAdresse_post(),
-      'mutuelle'=>$folder->getMutuelle(),
-      'optn'=>$folder->getOptn(),
-      'regime'=>$folder->getRegime()
+      'date_naissance'=>$dossier->getDate_naissance(),
+      'adresse_post'=>$dossier->getAdresse_post(),
+      'mutuelle'=>$dossier->getMutuelle(),
+      'optn'=>$dossier->getOptn(),
+      'regime'=>$dossier->getRegime()
     ));
     if($res) {
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
@@ -234,4 +239,3 @@ class manager {
 
 }
 ?>
-
