@@ -81,25 +81,25 @@ $rdv = $manager->getLesrdv();
                     foreach ($rdv as $value2){
                     ?>
                     <div class="card-body">
-                        <table>
+                        <p class="card-text">
+                            <table id="example" class="display">
+                            <thead>
                             <tr>
-                                <th>Date/Heure</th>
+                                <th>Heure</th>
+                                <th>Nom</th>
+                                <th>Prenom</th>
                                 <th>Medecin</th>
                             </tr>
-                        </table>
-                        <p class="card-text">
-                            <table>
+                            </thead>
+                            <tbody>
                             <tr>
-                                <td>Heure</td><br>
-                                <td>Nom</td>
-                                <td>Prenom</td>
-                                <td>Le medecin</td>
+                                <td><?= $value2['heure']?></td>
+                                <td><?=$value2['nom']?></td>
+                                <td><?=$value2['prenom']?></td>
+                                <td><?=$value2['nom_medecin'] ?></td>
                             </tr>
-
-                        <?= $value2['heure'],
-                            $value2['nom'],
-                        $value2['prenom'],$value2['nom_medecin'] ?></p>
-                        </table>
+                            </tbody>
+                            </table>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                     <?php }?>

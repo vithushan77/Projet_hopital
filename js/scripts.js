@@ -12,3 +12,7 @@ window.addEventListener('DOMContentLoaded', event => {
 $(document).ready(function() {
     $('.selectrdv').select2();
 });
+
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
