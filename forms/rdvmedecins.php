@@ -70,9 +70,11 @@ $resultrdv = $manager->getUserRdv();
                                     <button type="submit" class="btninsc">Valider</button>
                                     <br>
                                 </div>
+                        </form>
                                 <br>
                                 <hr style="height: 7px; margin-top: 7px; color: black">
-                                <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;    ">
+                                <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">
+                                    <form action="../back/annulerRDV.php" method="post">
                                     <h2 class="section-heading mb-4">
                                         <span style="text-align: center" class="section-heading-upper">Vos rendez-vous</span>
                                     </h2>
@@ -89,8 +91,8 @@ $resultrdv = $manager->getUserRdv();
                                         </p>
                                     <?php } ?>
                                 </div>
-                            </div>
                         </form>
+                            </div>
                     </div>
                 </div>
             </div>

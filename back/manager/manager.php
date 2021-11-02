@@ -341,5 +341,14 @@ WHERE rdv.id_medecin = :id_medecin');
       return $res;
     }
   }
+
+  public function annulerRDV($data){
+    $sql = $this->connexionBdd()->prepare('DELETE FROM `rdv` WHERE id=:id');
+    $sql->execute(array(
+        'id' => $data['id']
+    ));
+      echo '<body onLoad="alert(\'Annulation réussie\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+  }
 }
 ?>
