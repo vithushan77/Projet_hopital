@@ -47,6 +47,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                     with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
                                 </p>
 
+                                <!-- Ajout de style du tableau -->
+
                                 <style>
                                 table {
                                   border-collapse: collapse;
@@ -60,6 +62,35 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                   margin-bottom: 10px;
                                 }
                                 </style>
+
+                                <!-- Boutons permettannt d'exporter les informations d'une des tables de la bdd en XLS -->
+
+                                <caption>
+                                  <h4>
+                                    Exportation de données
+                                  </h4>
+                                </caption>
+                                <form action="" method="post">
+                                  <input type="button" class="btninsc" value="Exporter en XLS">
+                                </form>
+
+                                <!-- Boutons redirigeant vers des formulaires permettant d'ajouter différents utilisateurs (médecins/administrateurs) -->
+
+                                <caption>
+                                  <h4>
+                                    Ajout de nouveaux utilisateurs
+                                  </h4>
+                                </caption>
+                                <input type="button" class="btninsc" value="Ajouter nouveaux médecins" onClick="location.href='../forms/adminAjoutMedecins.php'">
+                                <input type="button"  class="btninsc" value="Ajouter nouveaux administrateurs" onClick="loction.href"='../forms/adminAjoutUsers.php'>
+
+                                <!-- Tableau affichant une liste d'utilisateurs -->
+
+                                <caption>
+                                  <h4>
+                                    Visualisation des utilisateurs
+                                  </h4>
+                                </caption>
 
                                 <div class="table">
                                   <table>
