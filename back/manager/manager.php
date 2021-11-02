@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
 session_start();
@@ -10,7 +11,8 @@ class manager
   public function connexionBdd()
   {
     try {
-      $db = new PDO('mysql:host=localhost:8889;dbname=projet_hopital;charset=utf8', 'root', 'root');
+
+      $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
 
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
