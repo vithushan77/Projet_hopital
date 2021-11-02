@@ -1,7 +1,7 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
 session_start();
 
 class manager
@@ -11,9 +11,6 @@ class manager
   public function connexionBdd()
   {
     try {
-
-
-      $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
 
       $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
 
@@ -34,7 +31,7 @@ class manager
       $_SESSION['mail'] = $u->getMail();
       $_SESSION['statut'] = $result['statut'];
       $_SESSION['id'] = $result['id']; // Si la colonne id = 1, on le redirige vers le panel_admin
-      header('Location: ../../vue/admin/panel_admin.php ');
+      header('Location: ../view/panel_admin.php ');
     } elseif (password_verify($u->getMdp(), $result['mdp'])) { // On décrypte le mot de passe, et on vérifie qu'il correspond au POST['pwd']
       $_SESSION['statut'] = $result['statut'];
       $_SESSION['mail'] = $u->getMail();
@@ -153,14 +150,8 @@ class manager
 
   public function ajoutDossierAdmission(User $u, Dossier $dossier)
   {
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
-    $sql->execute(array(
-        'nom' => $u->getNom(),
-        'prenom' => $u->getPrenom()
-    ));
-    $sql->fetch();
-    $dossier->setId_patient($sql['id']);
-    $sql = $this->connexionBdd()->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
+    $db = $this->connexionBdd();
+    $sql = $db->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
     VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
         'date_naissance' => $dossier->getDate_naissance(),
@@ -169,6 +160,9 @@ class manager
         'optn' => $dossier->getOptn(),
         'regime' => $dossier->getRegime()
     ));
+    $id = $db->lastInsertId();
+
+
     if ($res) {
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
@@ -177,6 +171,20 @@ class manager
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
     }
   }
+
+  public function afficherUtilisateurs() {
+  $sql = $this->connexionBdd()->prepare('SELECT nom, prenom, sexe, mail, statut FROM utilisateur');
+  $sql->execute();
+  $result = $sql->fetchAll();
+  return $result;
+}
+
+public function afficherSpecialites() {
+  $sql = $this->connexionBdd()->prepare('SELECT * FROM specialites');
+  $sql->execute();
+  $result = $sql->fetchAll();
+  return $result;
+}
 
   public function priseRDV($data)
   {
