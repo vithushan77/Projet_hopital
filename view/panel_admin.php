@@ -46,8 +46,23 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                     <em>lust</em>
                                     with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
                                 </p>
-                                <div class="card-body">
-                                  <table id="example" class="display">
+
+                                <style>
+                                table {
+                                  border-collapse: collapse;
+                                }
+                                td, th {
+                                  border: 1px solid black;
+                                  padding: 10px;
+                                }
+                                caption{
+                                  margin-top: 10px;
+                                  margin-bottom: 10px;
+                                }
+                                </style>
+
+                                <div class="table">
+                                  <table>
                                     <?php
                                     $manager = new manager();
                                     $result = $manager->afficherUtilisateurs();
@@ -62,19 +77,19 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
                                         <?php
                                         foreach($result as $keys => $values) {
                                          ?>
-                                        <td> <?=$values['nom']; ?> </td>
-                                        <td> <?=$values['prenom']; ?></td>
-                                        <td> <?=$values['sexe']; ?></td>
-                                        <td> <?=$values['mail']; ?></td>
-                                        <td> <?=$values['statut']; ?></td>
+                                         <tr>
+                                           <td> <?=$values['nom']; ?> </td>
+                                           <td> <?=$values['prenom']; ?></td>
+                                           <td> <?=$values['sexe']; ?></td>
+                                           <td> <?=$values['mail']; ?></td>
+                                           <td> <?=$values['statut']; ?></td>
+                                         </tr>
                                       <?php
                                         }
                                       ?>
-                                      </tr>
                                     </tbody>
                                   </table>
                                 </div>
