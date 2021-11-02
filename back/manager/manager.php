@@ -2,7 +2,23 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 session_start();
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+// require LES Fonction de php mailer
+// Load Composer's autoloader
+
+
+//equire '../../vendor/autoload.php';
+//require '../../vendor/autoload.php';
+
+require $_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/vendor/phpmailer/phpmailer/src/Exception.php';
+require $_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/vendor/PHPMailer/PHPMailer/src/PHPMailer.php';
+require $_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/vendor/PHPMailer/PHPMailer/src/SMTP.php';
 
 class manager
 {
@@ -11,9 +27,7 @@ class manager
   public function connexionBdd()
   {
     try {
-
-      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
-
+      $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
     }
@@ -63,6 +77,7 @@ class manager
           'mdp' => $u->getMdp(),
           'statut' => $u->getStatut()
       ));
+      $this->mail($u);
       echo '<body onLoad="alert(\'Compte créé avec succès\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/connexion.php">';
     }
@@ -349,6 +364,44 @@ WHERE rdv.id_medecin = :id_medecin');
     ));
       echo '<body onLoad="alert(\'Annulation réussie\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+  }
+  public function mail($a){
+    //PHP MAILER
+    //Instantiation and passing `true` enables exceptions
+    $mail = new PHPMailer(true);
+var_dump($mail);
+
+    try {
+      //Server settings
+      $mail->CharSet = 'UTF-8';
+      $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+      $mail->isSMTP();                                            // Send using SMTP
+      $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+      $mail->Username   = 'tom441325@gmail.com';                     // SMTP username
+      $mail->Password   = 'Loldelol2';                               // SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
+      $mail->Port       = 465;                                    // TCP port to connect to, use 465 for PHPMailer::ENCRYPTION_SMTPS above
+
+      //Recipients
+      $mail->setFrom('tom441325@gmail.com', 'NE PAS REPONDRE');
+      $mail->addAddress( $a->getMail() , $a->getNom());     // Add a recipient
+      $mail->addReplyTo('tom441325@gmail.com', 'NE PAS REPONDRE');
+      // Attachments
+      //  $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+      //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+      // Content
+      //$mail->isHTML(true);                                  // Set email format to HTML
+      $mail->Subject = 'Bienvenue ! ';
+      $mail->Body    = 'Bienvenue sur le site du Lycée de <b>Dugny!</b> : https://www.google.fr';
+      $mail->AltBody = 'Bienvenue sur le site du Lycée de Dugny!';
+
+      $mail->send();
+      echo 'Message has been sent';
+    } catch (Exception $e) {
+      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
   }
 }
 ?>
