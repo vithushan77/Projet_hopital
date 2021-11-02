@@ -74,6 +74,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                   <input type="button" class="btninsc" value="Exporter en XLS">
                                 </form>
 
+                                <hr>
+
                                 <!-- Boutons redirigeant vers des formulaires permettant d'ajouter différents utilisateurs (médecins/administrateurs) -->
 
                                 <caption>
@@ -83,6 +85,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                 </caption>
                                 <input type="button" class="btninsc" value="Ajouter nouveaux médecins" onClick="location.href='../forms/adminAjoutMedecins.php'">
                                 <input type="button"  class="btninsc" value="Ajouter nouveaux administrateurs" onClick="loction.href"='../forms/adminAjoutUsers.php'>
+
+                                <hr>
 
                                 <!-- Tableau affichant une liste d'utilisateurs -->
 
