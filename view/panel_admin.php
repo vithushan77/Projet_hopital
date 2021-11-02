@@ -2,14 +2,14 @@
 <html lang="en">
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php'); 
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
  ?>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Business Casual - Start Bootstrap Theme</title>
+        <title>Panel d'administration</title>
         <link rel="icon" type="image/x-icon" href="/Projet_hopital/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -46,34 +46,38 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                     <em>lust</em>
                                     with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
                                 </p>
-
-                                <table>
-                                  <?php
-                                  $userList = new user();
-                                  $manager = new manager();
-                                  $result = $manager->afficherUtilisateurs($userList);
-                                  ?>
-                                  <tr>
-                                    <th>Nom</th>
-                                    <th>Prénom</th>
-                                    <th>Sexe</th>
-                                    <th>Adresse électronique</th>
-                                    <th>Statut</th>
-                                  </tr>
-                                  <tr>
+                                <div class="card-body">
+                                  <table id="example" class="display">
                                     <?php
-                                    foreach($result as $keys => $values) {
-                                     ?>
-                                    <td> <?php echo $values['nom']; ?> </td>
-                                    <td> <?php echo $values['prenom']; ?></td>
-                                    <td> <?php echo $values['sexe']; ?></td>
-                                    <td> <?php echo $values['mail']; ?></td>
-                                    <td> <?php echo $values['statut']; ?></td>
-                                  <?php
-                                    }
-                                  ?>
-                                  </tr>
-                                </table>
+                                    $manager = new manager();
+                                    $result = $manager->afficherUtilisateurs();
+                                    ?>
+                                    <thead>
+                                      <tr>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Sexe</th>
+                                        <th>Adresse électronique</th>
+                                        <th>Statut</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <?php
+                                        foreach($result as $keys => $values) {
+                                         ?>
+                                        <td> <?=$values['nom']; ?> </td>
+                                        <td> <?=$values['prenom']; ?></td>
+                                        <td> <?=$values['sexe']; ?></td>
+                                        <td> <?=$values['mail']; ?></td>
+                                        <td> <?=$values['statut']; ?></td>
+                                      <?php
+                                        }
+                                      ?>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                             </div>
                         </div>
                     </div>
