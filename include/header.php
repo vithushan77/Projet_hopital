@@ -54,8 +54,16 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/listepatients.php">Liste des patients</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/moncompte.php">Mon compte</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
-              <?php }}
+              <?php }
               ?>
+              <?php
+              if($_SESSION['statut'] == 'admin') {
+               ?>
+               <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/panel_admin.php">Panel</a></li>
+               <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/moncompte.php">Mon compte</a></li>
+               <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/back/deconnexion.php">Déconnexion</a></li>
+             <?php }}
+                ?>
             </ul>
         </div>
     </div>

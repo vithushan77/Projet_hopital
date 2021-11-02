@@ -57,7 +57,7 @@ public function hydrate($donnees)
     return $this->date_naissance;
   }
 
-  public function setDate_naissance($sexe)
+  public function setDate_naissance($date_naissance)
   {
     $this->date_naissance = $date_naissance;
   }
