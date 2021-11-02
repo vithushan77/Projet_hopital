@@ -27,6 +27,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
 $manager = new Manager();
 $res = $manager->displayHours();
 $results = $manager->displayUser();
+$resultrdv = $manager->getUserRdv();
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -52,19 +53,37 @@ $results = $manager->displayUser();
                                 </div>
                                 <br><br>
                                 <div class="col-md-12">
+                                    <label for="">Choisir la date  :</label>
+                                    <input type="date" name="daterdv" class="" id="date">
+                                </div>
+                                <br><br>
+                                <div class="col-md-12">
                                     <label for="">Choisir l'heure :</label>
                                     <select name="heure">
                                         <?php foreach ($res as $value){ ?>
-
-                                            <option <?php if ($value['prise'] == 1 ){?> style="color: gray;" disabled <?php } ?> value="<?= $value['heure']?>"><?= $value['heure']?></option>
+                                            <option value="<?= $value['heure']?>"><?= $value['heure']?></option>
                                         <?php  } ?>
                                     </select> <br>
                                 </div>
                                 <div>
                                     <br>
                                     <button type="submit" class="btninsc">Valider</button>
+                                    <br>
                                 </div>
-
+                                <br>
+                                <hr style="height: 7px; margin-top: 7px; color: black">
+                                <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;    ">
+                                    <h2 class="section-heading mb-4">
+                                        <span style="text-align: center" class="section-heading-upper">Vos rendez-vous</span>
+                                    </h2>
+                                    <?php foreach ($resultrdv as $value){ ?>
+                                        <p>
+                                            <?= $value['nom'] ?>
+                                            <?= $value['heure'] ?>
+                                            <?= $value ['date_rdv'] ?>
+                                        </p>
+                                    <?php } ?>
+                                </div>
                             </div>
                         </form>
                     </div>

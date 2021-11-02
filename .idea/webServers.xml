@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="8c958f81-df1f-46fa-9a00-1360b2752352" name="serveurweb_erdalvithuminh_hopital" url="http://172.17.43.110">
+        <fileTransfer rootFolder="/var/www/html/Projet_hopital" accessType="SFTP" host="172.17.43.110" port="22" sshConfigId="da495318-9b6e-4614-80c7-caa692478586" sshConfig="root@172.17.43.110:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

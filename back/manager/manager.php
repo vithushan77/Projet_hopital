@@ -12,7 +12,10 @@ class manager
   {
     try {
 
+
       $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+
+      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
 
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
@@ -175,41 +178,44 @@ class manager
     }
   }
 
-  public function priseRDV($infordv)
+  public function priseRDV($data)
   {
-    var_dump($_POST);
+//    var_dump($data);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE nom=:nom');
     $sql->execute([
-        'nom' => $_POST['utilisateur']
+        'nom' => $data['utilisateur']
     ]);
     $resultpatient = $sql->fetch();
 
-    var_dump($resultpatient);
+//    var_dump($resultpatient);
 
     $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE statut="medecin" AND mail=:mail');
     $sql->execute([
         'mail' => $_SESSION['mail']
     ]);
     $resultmedecin = $sql->fetch();
-    var_dump($resultmedecin);
-    var_dump($_SESSION);
+//    var_dump($resultmedecin);
+//    var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
-        'heure' => $_POST['heure']
+        'heure' => $data['heure']
     ]);
     $resultheure = $sql->fetch();
-    var_dump($resultheure);
+//    var_dump($resultheure);
     $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
       VALUES (:id_utilisateur, :id_heure, :id_medecin)');
-    $res = $sql->execute([
+      $res = $sql->execute([
         'id_medecin' => $resultmedecin['id'],
         'id_utilisateur' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
     ]);
-    echo "heure : " . $resultheure['id'];
-    echo "patient : " . $resultpatient['id'];
-    echo "medecin : " . $resultmedecin['id'];
-    exit;
+//    echo "heure : " . $resultheure['id'];
+//    echo "patient : " . $resultpatient['id'];
+//    echo "medecin : " . $resultmedecin['id'];
+//    var_dump($sql);
+//    var_dump($res);
+//    echo $res;
+//    exit;
 
     if ($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
@@ -278,6 +284,54 @@ class manager
     $res = $sql->fetchAll();
     return $res;
 
+  }
+
+  public function getRdvHeure($data){
+    $sql = $this->connexionBdd()->prepare('SELECT date_rdv FROM heure WHERE date_rdv =:date_rdv AND heure = :heure');
+    $sql->execute(array(
+        'date_rdv' => $data['daterdv'],
+      'heure' => $data['heure']
+    ));
+    $res = $sql->fetch();
+    return $res;
+  }
+
+  public function insertDate($data){
+
+    $sql = $this->connexionBdd()->prepare('UPDATE heure SET date_rdv=:date_rdv WHERE heure=:heure');
+    $sql->execute(array(
+        'heure' => $data['heure'],
+        'date_rdv' => $data['daterdv']
+    ));
+
+  }
+
+  public function getUserRdv(){
+
+    if($_SESSION['statut'] == "patient"){
+    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv
+FROM rdv
+INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
+INNER JOIN heure ON rdv.id_heure=heure.id
+WHERE rdv.id_utilisateur = :id_utilisateur');
+    $sql->execute(array(
+        'id_utilisateur' => $_SESSION['id'],
+    ));
+      $res = $sql->fetchAll();
+      return $res;
+    }
+    if($_SESSION['statut'] == "medecin"){
+      $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv
+FROM rdv
+INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
+INNER JOIN heure ON rdv.id_heure=heure.id
+WHERE rdv.id_medecin = :id_medecin');
+      $sql->execute(array(
+          'id_medecin' => $_SESSION['id'],
+      ));
+      $res = $sql->fetchAll();
+      return $res;
+    }
   }
 }
 ?>
