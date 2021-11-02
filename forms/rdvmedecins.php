@@ -54,7 +54,7 @@ $resultrdv = $manager->getUserRdv();
                                 <br><br>
                                 <div class="col-md-12">
                                     <label for="">Choisir la date  :</label>
-                                    <input type="date" name="daterdv" class="" id="date">
+                                    <input type="date" name="daterdv" class="" id="date" min="<?= date('Y-m-d'); ?>"/>
                                 </div>
                                 <br><br>
                                 <div class="col-md-12">
@@ -81,6 +81,11 @@ $resultrdv = $manager->getUserRdv();
                                             <?= $value['nom'] ?>
                                             <?= $value['heure'] ?>
                                             <?= $value ['date_rdv'] ?>
+                                            <?php if ($value['date_rdv'] > date("Y-m-d")){ ?>
+                                            <input type="submit" value="Annuler" class="btninsc" />
+                                            <?php } ?>
+                                            <input type="hidden" name="id" value="<?= $value['id'] ?>">
+
                                         </p>
                                     <?php } ?>
                                 </div>

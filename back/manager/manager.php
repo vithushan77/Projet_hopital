@@ -309,7 +309,7 @@ class manager
   public function getUserRdv(){
 
     if($_SESSION['statut'] == "patient"){
-    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv
+    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv, rdv.id
 FROM rdv
 INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
 INNER JOIN heure ON rdv.id_heure=heure.id
@@ -321,7 +321,7 @@ WHERE rdv.id_utilisateur = :id_utilisateur');
       return $res;
     }
     if($_SESSION['statut'] == "medecin"){
-      $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv
+      $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv, rdv.id
 FROM rdv
 INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
 INNER JOIN heure ON rdv.id_heure=heure.id
