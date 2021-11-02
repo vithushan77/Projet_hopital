@@ -46,8 +46,58 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                     <em>lust</em>
                                     with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
                                 </p>
-                                <div class="card-body">
-                                  <table id="example" class="display">
+
+                                <!-- Ajout de style du tableau -->
+
+                                <style>
+                                table {
+                                  border-collapse: collapse;
+                                }
+                                td, th {
+                                  border: 1px solid black;
+                                  padding: 10px;
+                                }
+                                caption{
+                                  margin-top: 10px;
+                                  margin-bottom: 10px;
+                                }
+                                </style>
+
+                                <!-- Boutons permettannt d'exporter les informations d'une des tables de la bdd en XLS -->
+
+                                <caption>
+                                  <h4>
+                                    Exportation de données
+                                  </h4>
+                                </caption>
+                                <form action="" method="post">
+                                  <input type="button" class="btninsc" value="Exporter en XLS">
+                                </form>
+
+                                <hr>
+
+                                <!-- Boutons redirigeant vers des formulaires permettant d'ajouter différents utilisateurs (médecins/administrateurs) -->
+
+                                <caption>
+                                  <h4>
+                                    Ajout de nouveaux utilisateurs
+                                  </h4>
+                                </caption>
+                                <input type="button" class="btninsc" value="Ajouter nouveaux médecins" onClick="location.href='../forms/adminAjoutMedecins.php'">
+                                <input type="button"  class="btninsc" value="Ajouter nouveaux administrateurs" onClick="loction.href"='../forms/adminAjoutUsers.php'>
+
+                                <hr>
+
+                                <!-- Tableau affichant une liste d'utilisateurs -->
+
+                                <caption>
+                                  <h4>
+                                    Visualisation des utilisateurs
+                                  </h4>
+                                </caption>
+
+                                <div class="table">
+                                  <table>
                                     <?php
                                     $manager = new manager();
                                     $result = $manager->afficherUtilisateurs();
@@ -62,19 +112,19 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      <tr>
                                         <?php
                                         foreach($result as $keys => $values) {
                                          ?>
-                                        <td> <?=$values['nom']; ?> </td>
-                                        <td> <?=$values['prenom']; ?></td>
-                                        <td> <?=$values['sexe']; ?></td>
-                                        <td> <?=$values['mail']; ?></td>
-                                        <td> <?=$values['statut']; ?></td>
+                                         <tr>
+                                           <td> <?=$values['nom']; ?> </td>
+                                           <td> <?=$values['prenom']; ?></td>
+                                           <td> <?=$values['sexe']; ?></td>
+                                           <td> <?=$values['mail']; ?></td>
+                                           <td> <?=$values['statut']; ?></td>
+                                         </tr>
                                       <?php
                                         }
                                       ?>
-                                      </tr>
                                     </tbody>
                                   </table>
                                 </div>
