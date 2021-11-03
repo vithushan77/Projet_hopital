@@ -104,7 +104,7 @@ class manager
 
   public function modifyPwd(User $u)
   {
-    $sql = $this->connexionBdd()->prepare('UPDATE user SET mdp=:mdp WHERE id=:id');
+    $sql = $this->connexionBdd()->prepare('UPDATE utilisateur SET mdp=:mdp WHERE id=:id');
     $sql->execute(array(
         'mdp' => $u->getMdp()
     ));
@@ -184,6 +184,33 @@ class manager
     } else {
       echo '<body onLoad="alert(\'Veuillez remplir les champs du formulaire\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
+    }
+  }
+
+  public function adminAddUsers(User $u) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT * FROM utilisateur WHERE mail=:mail');
+    $sql->execute(array(
+      'mail'=>$u->getMail()
+    ));
+    $result = $sql->fetch();
+    if($result == TRUE) {
+      echo '<body onLoad="alert(\'Adresse mail ou autres informations déjà utilisée\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutUsers.php">';
+    }
+    else {
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)');
+      $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom(),
+        'sexe'=>$u->getSexe(),
+        'mail'=>$u->getMail(),
+        'mdp'=>$u->getMdp(),
+        'statut'=>$u->getStatut()
+      ));
+      echo '<body onLoad="alert(\'Compte HSP créé avec succès\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
     }
   }
 

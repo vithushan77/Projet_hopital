@@ -39,7 +39,7 @@
                                     <span class="section-heading-upper">Création d'un compte HSP</span>
                                 </h2>
 
-                                <form action="../back/add_user.php" method="post" >
+                                <form action="../back/adminAddUsers.php" method="post" >
                                   <div class="form-group row">
                                     <div class="col-md-6">
                                       <label for="">Nom de naissance</label>
