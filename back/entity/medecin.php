@@ -4,6 +4,7 @@ class medecin {
 
   private $id;
   private $id_user;
+  private $id_specialite;
   private $telephone;
   private $lieu;
 
@@ -48,6 +49,16 @@ public function setId_user($id_user)
   $this->id_user = $id_user;
 }
 
+public function getId_specialite()
+{
+  return $this->id_specialite;
+}
+
+public function setId_specialite($id_specialite)
+{
+  $this->id_specialite = $id_specialite;
+}
+
 public function getTelephone()
 {
   return $this->telephone;
@@ -58,14 +69,14 @@ public function setTelephone($telephone)
   $this->telephone = $telephone;
 }
 
-public function getLieu()
+public function getVille()
 {
-  return $this->lieu;
+  return $this->ville;
 }
 
-public function setLieu($lieu)
+public function setVille($ville)
 {
-  $this->lieu = $lieu;
+  $this->ville = $ville;
 }
 
 }
