@@ -11,7 +11,7 @@ $manager = new manager();
 
 if(isset($_POST['nomSpe']))
 {
-  $newMember->setStatut($_POST['statut']);
+  $newMember->setStatut('medecin');
   $newDoctor->setId_specialite($_POST['nomSpe']);
   $manager->adminAddMedecins($newMember, $newDoctor);
 }

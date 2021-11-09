@@ -66,19 +66,6 @@
                                       </select>
                                     </div>
 
-                                      <div class="col-md-4">
-                                          <label for="">Statut</label>
-                                          <select name="statut" class="form-control" required>
-                                              <optgroup label="">
-                                                  <option value="--/--">--/--</option>
-                                                  <option value="admin">Admin</option>
-                                                  <option value="medecin">Médecin</option>
-                                                  <option value="patient">Patient</option>
-                                                  <option value="urgentiste">Urgentiste</option>
-                                              </optgroup>
-                                          </select>
-                                      </div>
-
                                       <div class="col-md-6">
                                         <label for="">Spécialité du praticien</label>
                                         <select name="nomSpe" class="form-control" required>
