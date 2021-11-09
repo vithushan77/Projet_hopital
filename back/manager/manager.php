@@ -195,7 +195,7 @@ class manager
     ));
     $result = $sql->fetch();
     if($result == TRUE) {
-      echo '<body onLoad="alert(\'Adresse mail ou autres informations déjà utilisée\')">';
+      echo '<body onLoad="alert(\'Adresse mail ou autres informations déjà utilisées\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutUsers.php">';
     }
     else {
@@ -210,6 +210,45 @@ class manager
         'statut'=>$u->getStatut()
       ));
       echo '<body onLoad="alert(\'Compte HSP créé avec succès\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
+    }
+  }
+
+  public function adminAddMedecins(User $u, Medecin $m) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT * FROM utilisateur WHERE mail=:mail');
+    $result = $sql->execute(array(
+      'mail'=>$u->getMail()
+    ));
+    if($result) {
+      echo '<body onLoad="alert(\'Adresse mail ou autres informations déjà utilisées\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutPraticiens.php">';
+    }
+    else {
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, statut)
+      VALUES(:nom, :prenom, :sexe, :mail, :statut)');
+      $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom(),
+        'sexe'=>$u->getSexe(),
+        'mail'=>$u->getMail(),
+        'statut'=>getStatut()
+      ));
+      $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
+      $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom()
+      ));
+      $result = $sql->fetch();
+      $m->setId_user($result['id']);
+      $sql = $db->prepare('INSERT INTO medecin(id_user, id_specialite, telephone, ville) VALUES(:id_user, :id_specialite, :telephone, :ville)');
+      $sql->execute(array(
+        'id_user'=>$m->getId_user(),
+        'id_specialite'=>$m->getIdSpecialite(),
+        'telephone'=>$m->getTelephone(),
+        'ville'=>$m->getVille()
+      ));
+      echo '<body onLoad="alert(\'Informations enregistrées avec succès\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
     }
   }
