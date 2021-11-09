@@ -68,7 +68,6 @@
                                               <optgroup label="">
                                                   <option value="--/--">--/--</option>
                                                   <option value="admin">Admin</option>
-                                                  <option value="medecin">Médecin</option>
                                                   <option value="patient">Patient</option>
                                                   <option value="urgentiste">Urgentiste</option>
                                               </optgroup>
