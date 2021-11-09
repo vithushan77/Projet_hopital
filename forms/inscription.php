@@ -62,16 +62,6 @@
                                       </select>
                                     </div>
 
-                                      <div class="col-md-4">
-                                          <label for="">Statut</label>
-                                          <select name="statut" class="form-control" required>
-                                              <optgroup label="">
-                                                  <option value="--/--">--/--</option>
-                                                  <option value="medecin">Médecin</option>
-                                                  <option value="patient">Patient</option>
-                                              </optgroup>
-                                          </select>
-                                      </div>
 
                                     <div class="col-md-12">
                                       <label for="">Adresse mail</label>

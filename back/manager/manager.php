@@ -431,23 +431,33 @@ WHERE rdv.id_medecin = :id_medecin');
       echo '<body onLoad="alert(\'Annulation réussie\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
   }
+
+  public function deleterdv($data1){
+    $sql = $this->connexionBdd()->prepare('DELETE FROM `rdv` WHERE id=:id');
+    $sql->execute(array(
+        'id' => $data1['id']
+    ));
+    echo '<body onLoad="alert(\'Annulation réussie\')">';
+    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+  }
   public function mail($a){
     //PHP MAILER
     //Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
 var_dump($mail);
 
+
     try {
       //Server settings
       $mail->CharSet = 'UTF-8';
-      $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+      $mail->SMTPDebug = 4;                      // Enable verbose debug output
       $mail->isSMTP();                                            // Send using SMTP
       $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
       $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
       $mail->Username   = 'tom441325@gmail.com';                     // SMTP username
       $mail->Password   = 'Loldelol2';                               // SMTP password
-      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
-      $mail->Port       = 465;                                    // TCP port to connect to, use 465 for PHPMailer::ENCRYPTION_SMTPS above
+      $mail->SMTPSecure = 'tls';         // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
+      $mail->Port       = 587;                                    // TCP port to connect to, use 465 for PHPMailer::ENCRYPTION_SMTPS above
 
       //Recipients
       $mail->setFrom('tom441325@gmail.com', 'NE PAS REPONDRE');
@@ -465,6 +475,7 @@ var_dump($mail);
 
       $mail->send();
       echo 'Message has been sent';
+
     } catch (Exception $e) {
       echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
