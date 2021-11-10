@@ -163,20 +163,26 @@ class manager
     return $result;
   }
 
-  public function ajoutDossierAdmission(User $u, Dossier $dossier)
+  public function ajoutDossierAdmission(User $u, Dossier $d)
   {
     $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
+    $sql->execute(array(
+      'nom'=>$u->getNom(),
+      'prenom'=>$u->getPrenom()
+    ));
+    $result = $sql->fetch();
+    $dossier->setId_patient($result['id']);
     $sql = $db->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
     VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
-        'date_naissance' => $dossier->getDate_naissance(),
-        'adresse_post' => $dossier->getAdresse_post(),
-        'mutuelle' => $dossier->getMutuelle(),
-        'optn' => $dossier->getOptn(),
-        'regime' => $dossier->getRegime()
+      'id_patient'=>$d->getId_patient(),
+      'date_naissance'=>$d->getDate_naissance(),
+      'adresse_post'=>$d->getAdresse_post(),
+      'mutuelle'=>$d->getMutuelle(),
+      'optn'=>$d->getOptn(),
+      'regime'=>$d->getRegime()
     ));
-    $id = $db->lastInsertId();
-
 
     if ($res) {
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
@@ -216,32 +222,44 @@ class manager
 
   public function adminAddMedecins(User $u, Medecin $m) {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut)
-    VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)');
+    $sql = $db->prepare('SELECT COUNT(*) FROM utilisateur WHERE mail=:mail AND mdp=:mdp');
     $sql->execute(array(
-      'nom'=>$u->getNom(),
-      'prenom'=>$u->getPrenom(),
-      'sexe'=>$u->getSexe(),
       'mail'=>$u->getMail(),
-      'mdp'=>$u->getMdp(),
-      'statut'=>$u->getStatut()
-    ));
-    $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
-    $sql->execute(array(
-      'nom'=>$u->getNom(),
-      'prenom'=>$u->getPrenom()
+      'mdp'=>$u->getMdp()
     ));
     $result = $sql->fetch();
-    $m->setId_user($result['id']);
-    $sql = $db->prepare('INSERT INTO medecin(id_user, id_specialite, telephone, ville) VALUES(:id_user, :id_specialite, :telephone, :ville)');
-    $sql->execute(array(
-      'id_user'=>$m->getId_user(),
-      'id_specialite'=>$m->getId_specialite(),
-      'telephone'=>$m->getTelephone(),
-      'ville'=>$m->getVille()
-    ));
-    echo '<body onLoad="alert(\'Informations enregistrées avec succès\')">';
-    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
+    if($result) {
+      echo '<body onLoad="alert(\'Adresse mail ou mot de passe déjà existants\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutPraticiens.php">';
+    }
+    else {
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)');
+      $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom(),
+        'sexe'=>$u->getSexe(),
+        'mail'=>$u->getMail(),
+        'mdp'=>$u->getMdp(),
+        'statut'=>$u->getStatut()
+      ));
+      $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
+      $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom()
+      ));
+      $result = $sql->fetch();
+      $m->setId_user($result['id']);
+      $sql = $db->prepare('INSERT INTO medecin(id_user, id_specialite, telephone, ville) VALUES(:id_user, :id_specialite, :telephone, :ville)');
+      $sql->execute(array(
+        'id_user'=>$m->getId_user(),
+        'id_specialite'=>$m->getId_specialite(),
+        'telephone'=>$m->getTelephone(),
+        'ville'=>$m->getVille()
+      ));
+      echo '<body onLoad="alert(\'Informations enregistrées avec succès\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
+    }
   }
 
   public function afficherUtilisateurs() {
