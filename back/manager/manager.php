@@ -276,6 +276,20 @@ public function afficherSpecialites() {
   return $result;
 }
 
+public function afficherCategoriesMotifs() {
+  $db = $this->connexionBdd();
+  $sql = $db->prepare('SELECT * FROM motifs');
+  $sql->fetchAll();
+  return $sql;
+}
+
+public function afficherTypesConsultations() {
+  $db = $this->connexionBdd();
+  $sql = $db->prepare('SELECT * FROM consultations');
+  $sql->fetchAll();
+  return $sql;
+}
+
   public function priseRDV($data)
   {
 //    var_dump($data);
