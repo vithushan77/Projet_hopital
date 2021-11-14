@@ -172,7 +172,7 @@ class manager
       'prenom'=>$u->getPrenom()
     ));
     $result = $sql->fetch();
-    $dossier->setId_patient($result['id']);
+    $d->setId_patient($result['id']);
     $sql = $db->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
     VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
     $res = $sql->execute(array(
