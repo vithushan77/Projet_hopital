@@ -311,7 +311,9 @@ public function afficherPatients() {
 
 //    var_dump($resultpatient);
 
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE statut="medecin" AND mail=:mail');
+    $sql = $this->connexionBdd()->prepare('SELECT medecin.id FROM medecin
+INNER JOIN utilisateur ON utilisateur.id = id_user
+WHERE utilisateur.mail = :mail');
     $sql->execute([
         'mail' => $_SESSION['mail']
     ]);
@@ -324,11 +326,11 @@ public function afficherPatients() {
     ]);
     $resultheure = $sql->fetch();
 //    var_dump($resultheure);
-    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
-      VALUES (:id_utilisateur, :id_heure, :id_medecin)');
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_patient, id_heure, id_medecin)
+      VALUES (:id_patient, :id_heure, :id_medecin)');
       $res = $sql->execute([
         'id_medecin' => $resultmedecin['id'],
-        'id_utilisateur' => $resultpatient['id'],
+        'id_patient' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
     ]);
 //    echo "heure : " . $resultheure['id'];
@@ -433,23 +435,32 @@ public function afficherPatients() {
     if($_SESSION['statut'] == "patient"){
     $sql = $this->connexionBdd()->prepare('SELECT *
 FROM rdv
-INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
+INNER JOIN utilisateur ON rdv.id_patient=utilisateur.id
 INNER JOIN heure ON rdv.id_heure=heure.id
-WHERE rdv.id_utilisateur = :id_utilisateur');
+WHERE rdv.id_patient = :id_utilisateur');
     $sql->execute(array(
         'id_utilisateur' => $_SESSION['id'],
     ));
       $res = $sql->fetchAll();
       return $res;
     }
+
     if($_SESSION['statut'] == "medecin"){
+      $sql = $this->connexionBdd()->prepare('SELECT medecin.id FROM medecin
+INNER JOIN utilisateur ON utilisateur.id = id_user
+WHERE utilisateur.mail = :mail');
+      $sql->execute([
+          'mail' => $_SESSION['mail']
+      ]);
+      $resultmedecin = $sql->fetch();
+
       $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv, rdv.id
 FROM rdv
-INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
+INNER JOIN utilisateur ON rdv.id_patient=utilisateur.id
 INNER JOIN heure ON rdv.id_heure=heure.id
 WHERE rdv.id_medecin = :id_medecin');
       $sql->execute(array(
-          'id_medecin' => $_SESSION['id'],
+          'id_medecin' => $resultmedecin['id'],
       ));
       $res = $sql->fetchAll();
       return $res;
@@ -517,6 +528,28 @@ die();
     } catch (Exception $e) {
       echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
+  }
+
+
+  public function setOrdonnance($data){
+    $sql = $this->connexionBdd()->prepare('INSERT INTO ordonnance(nomFichier, fichier, id_rdv) VALUES (:nomFichier,:fichier,:id)');
+    $res = $sql->execute(array(
+        'nomFichier' => $data['nomFichier'],
+        'fichier' => $data['fichier'],
+        'id' => $data['id_rdv']
+    ));
+//    var_dump($data);
+//    exit;
+    if ($res){
+      echo '<body onLoad="alert(\'Ordonnance créée\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+    else{
+      echo '<body onLoad="alert(\'Erreur dans lordonnance\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+
+
   }
 }
 ?>

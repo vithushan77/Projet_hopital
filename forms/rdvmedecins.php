@@ -41,7 +41,7 @@ $resultrdv = $manager->getUserRdv();
                         </h2>
                         <span class="section-heading-upper"></span>
                         </h2>
-                        <form action="../back/prendreRDV.php" method="post" >
+                        <form action="../back/prendreRDV.php" method="post">
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label for="">Choisir le patient :</label>
@@ -70,11 +70,11 @@ $resultrdv = $manager->getUserRdv();
                                     <button type="submit" class="btninsc">Valider</button>
                                     <br>
                                 </div>
+                            </div>
                         </form>
                                 <br>
                                 <hr style="height: 7px; margin-top: 7px; color: black">
                                 <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">
-                                    <form action="../back/annulerRDV.php" method="post">
                                     <h2 class="section-heading mb-4">
                                         <span style="text-align: center" class="section-heading-upper">Vos rendez-vous</span>
                                     </h2>
@@ -83,15 +83,32 @@ $resultrdv = $manager->getUserRdv();
                                             <?= $value['nom'] ?>
                                             <?= $value['heure'] ?>
                                             <?= $value ['date_rdv'] ?>
+                                        <form action="../back/annulerRDV.php" method="post">
                                             <?php if ($value['date_rdv'] > date("Y-m-d")){ ?>
+                                            <input type="hidden" name="id" value="<?= $value['id'] ?>">
                                             <input type="submit" value="Annuler" class="btninsc" />
                                             <?php } ?>
-                                            <input type="hidden" name="id" value="<?= $value['id'] ?>">
 
+                                    </form>
+                                    <form action="../view/ordonnance.php" method="post">
+                                            <a href="/Projet_hopital/view/ordonnance.php"><button class="btninsc">Ordonnance</button></a>
+                                        <input type="hidden" value="<?= $value['id'] ?>" name="id_rdv" />
+                                    </form>
                                         </p>
+
+                                    <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">
                                     <?php } ?>
+                                        <?php $a = "61938a9ac232d.pdf";
+                                        if (isset($a)) { ?>
+                                            <div style="margin-top: 10px">
+                                                <form method="post" action="../back/telechargerFichier.php">
+                                                    <input type="hidden" name="fichier" value="<?= $a ?>">
+                                                    <input type="submit" value="Télécharger" class="btn-valider">
+
+                                                </form>
+                                            </div>
+                                        <?php } ?>
                                 </div>
-                        </form>
                             </div>
                     </div>
                 </div>
