@@ -279,6 +279,7 @@ public function afficherSpecialites() {
 public function afficherCategoriesMotifs() {
   $db = $this->connexionBdd();
   $sql = $db->prepare('SELECT * FROM motifs');
+  $sql->execute();
   $sql->fetchAll();
   return $sql;
 }
@@ -286,8 +287,17 @@ public function afficherCategoriesMotifs() {
 public function afficherTypesConsultations() {
   $db = $this->connexionBdd();
   $sql = $db->prepare('SELECT * FROM consultations');
+  $sql->execute();
   $sql->fetchAll();
   return $sql;
+}
+
+public function afficherPatients() {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT nom, prenom, mail, statut FROM utilisateur WHERE statut="patient"');
+    $sql->execute();
+    $result = $sql->fetchall();
+    return $result;
 }
 
   public function priseRDV($data)
