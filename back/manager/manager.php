@@ -391,15 +391,15 @@ public function afficherPatients() {
 
     if ($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
     } else {
       echo '<body onLoad="alert(\'Erreur dans la prise de RDV\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
     }
   }
   public function getLesrdv()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom,utilisateur.prenom, medecin.nom_medecin, heure.heure FROM utilisateur,medecin,heure, rdv WHERE rdv.id_medecin=medecin.id and rdv.id_heure=heure.id and utilisateur.id=rdv.id_utilisateur AND rdv.id_utilisateur=:id');
+    $sql = $this->connexionBdd()->prepare('SELECT rdv.id, utilisateur.nom,utilisateur.prenom, medecin.nom_medecin, heure.heure FROM utilisateur,medecin,heure, rdv WHERE rdv.id_medecin=medecin.id and rdv.id_heure=heure.id and utilisateur.id=rdv.id_utilisateur AND rdv.id_utilisateur=:id');
     $sql->execute(array(
         'id' => $_SESSION['id']
     ));
@@ -431,7 +431,7 @@ public function afficherPatients() {
   public function getUserRdv(){
 
     if($_SESSION['statut'] == "patient"){
-    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom, heure.heure, heure.date_rdv, rdv.id
+    $sql = $this->connexionBdd()->prepare('SELECT *
 FROM rdv
 INNER JOIN utilisateur ON rdv.id_utilisateur=utilisateur.id
 INNER JOIN heure ON rdv.id_heure=heure.id
@@ -461,23 +461,28 @@ WHERE rdv.id_medecin = :id_medecin');
     $sql->execute(array(
         'id' => $data['id']
     ));
-      echo '<body onLoad="alert(\'Annulation réussie\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+     // echo '<body onLoad="alert(\'Annulation réussie\')">';
+      //echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    exit();
+    die();
   }
 
   public function deleterdv($data1){
     $sql = $this->connexionBdd()->prepare('DELETE FROM `rdv` WHERE id=:id');
+    var_dump();
     $sql->execute(array(
         'id' => $data1['id']
     ));
     echo '<body onLoad="alert(\'Annulation réussie\')">';
-    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
   }
   public function mail($a){
     //PHP MAILER
     //Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
 var_dump($mail);
+exit();
+die();
 
 
     try {

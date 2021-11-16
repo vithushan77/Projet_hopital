@@ -26,7 +26,7 @@
         <!-- Navigation-->
         <?php include 'include/header.php'; ?>
 
-        <section class="page-section clearfix">
+        <section style="margin-bottom:" class="page-section clearfix">
             <div class="container">
                 <div class="intro">
                     <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="assets/img/intro.jpg" alt="..." />
