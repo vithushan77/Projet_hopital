@@ -30,6 +30,8 @@ $manager = new Manager();
 $res = $manager->displayHours();
 $med = $manager->lemedecin();
 $rdv = $manager->getLesrdv();
+$resultrdv = $manager->getUserRdv();
+var_dump($_SESSION);
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -46,7 +48,7 @@ $rdv = $manager->getLesrdv();
                         <form action="../back/add_rdv_patient.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="">Choisissez votre medecin:</label>
+                                        <label for="">Choisissez votre medecin:</label>
                                         <select class="selectrdv" name="medecin">
                                             <?php
                                             foreach ($med as $value1){?>
@@ -75,10 +77,11 @@ $rdv = $manager->getLesrdv();
                             </div>
                         </form>
                 <br>
+
                 <div class="card">
                     <h5 class="card-header">Vos Rendez-vous à venir</h5>
                     <?php
-                    foreach ($rdv as $value2){
+                    foreach ($resultrdv as $value2){
                     ?>
                     <div class="card-body">
                         <p class="card-text">
@@ -93,16 +96,21 @@ $rdv = $manager->getLesrdv();
                             </thead>
                             <tbody>
                             <tr>
-                                <td><?= $value2['heure']?></td>
+                                <td><?=$value2['heure']?></td>
                                 <td><?=$value2['nom']?></td>
                                 <td><?=$value2['prenom']?></td>
                                 <td><?=$value2['nom_medecin'] ?></td>
                             </tr>
                             </tbody>
-                            </table>
+                        </table>
+                        <form action="../back/deleterdvpatient.php" method="post">
+                            <input type="hidden" name="id" value="<?= $value2['id']?>">
+                        <input type="submit" value="Annuler" class="btninsc" />
+                        </form>
                     </div>
                     <?php }?>
                 </div>
+                </form>
                     </div>
                 </div>
             </div>
