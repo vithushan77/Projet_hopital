@@ -10,6 +10,7 @@ class user {
   private $mail;
   private $mdp;
   private $statut;
+  private $etat;
 
   /**
  * constructeur de la classe user.
@@ -110,6 +111,17 @@ public function hydrate($donnees)
   {
     $this->statut = $statut;
   }
+
+  public function getEtat()
+  {
+    return $this->etat;
+  }
+
+  public function setEtat($etat)
+  {
+    $this->etat = $etat;
+  }
+
 }
 
  ?>
