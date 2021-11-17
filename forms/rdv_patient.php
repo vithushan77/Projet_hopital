@@ -54,7 +54,7 @@ var_dump($_SESSION);
                                         <select name="nom" class="selectrdv" required>
                                             <?php
                                             foreach ($medecins as $keys => $value1){ ?>
-                                                <option value=""><?='Dr'.$value1['nom']?></option>
+                                                <option value=""><?='Dr','.',$value1['nom']?></option>
                                             <?php } ?>
                                         </select>
                                 </div>
