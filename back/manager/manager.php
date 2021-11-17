@@ -2,7 +2,6 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 session_start();
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
@@ -27,7 +26,7 @@ class manager
   public function connexionBdd()
   {
     try {
-      $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
     }
@@ -148,7 +147,7 @@ class manager
 
   public function lemedecin()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT nom FROM utilisateur WHERE statut="medecin" ');
+    $sql = $this->connexionBdd()->prepare('SELECT id, nom FROM utilisateur WHERE statut="medecin" ');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
@@ -262,6 +261,22 @@ class manager
       echo '<body onLoad="alert(\'Informations enregistrées avec succès\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
     }
+  }
+
+  public function ReactivateAccount(User $u) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('UPDATE utilisateur SET etat=1');
+    $sql->execute(array(
+       'etat'=>$u->getEtat()
+    ));
+  }
+
+  public function DeactivateAccount(User $u) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('UPDATE utilisateur SET etat=0');
+    $sql->execute(array(
+        'etat'=>$u->getEtat()
+    ));
   }
 
   public function afficherUtilisateurs() {
@@ -379,7 +394,7 @@ WHERE utilisateur.mail = :mail');
     $resultmedecin = $sql->fetch();
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
-        'heure' => $_POST['rdvpatiant']
+        'heure' => $_POST['rdvpatient']
     ]);
     $resultheure = $sql->fetch();
     $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
