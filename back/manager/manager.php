@@ -2,6 +2,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 session_start();
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
@@ -26,7 +27,7 @@ class manager
   public function connexionBdd()
   {
     try {
-      $db = new PDO('mysql:host=localhost;dbname=projet_hopital;charset=utf8', 'root', '');
+      $db = new PDO('mysql:host='.$_ENV["bdd_host"].';dbname='.$_ENV["bdd_name"].';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
     }
@@ -147,7 +148,7 @@ class manager
 
   public function lemedecin()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT id, nom FROM utilisateur WHERE statut="medecin" ');
+    $sql = $this->connexionBdd()->prepare('SELECT nom FROM utilisateur WHERE statut="medecin" ');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
