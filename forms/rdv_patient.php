@@ -28,7 +28,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
-$med = $manager->lemedecin();
+$medecins = $manager->lemedecin();
 $rdv = $manager->getLesrdv();
 $resultrdv = $manager->getUserRdv();
 $categoriesMotifs = $manager->afficherCategoriesMotifs();
@@ -50,13 +50,12 @@ var_dump($_SESSION);
                         <form action="../back/add_rdv_patient.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                        <label for="">Choisissez votre medecin:</label>
-                                        <select class="selectrdv" name="medecin">
+                                        <label for="">Choisissez votre médecin:</label>
+                                        <select name="nom" class="selectrdv" required>
                                             <?php
-                                            foreach ($med as $value1){?>
-                                                <option value="<?php echo $value1['nom_medecin'];?>"><?php echo $value1['nom_medecin'];?></option>
-
-                                            <?php }?>
+                                            foreach ($medecins as $keys => $value1){ ?>
+                                                <option value=""><?='Dr'.$value1['nom']?></option>
+                                            <?php } ?>
                                         </select>
                                 </div>
 

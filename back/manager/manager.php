@@ -148,7 +148,7 @@ class manager
 
   public function lemedecin()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT * FROM medecin');
+    $sql = $this->connexionBdd()->prepare('SELECT nom FROM utilisateur WHERE statut="medecin" ');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
@@ -163,33 +163,35 @@ class manager
     return $result;
   }
 
-  public function ajoutDossierAdmission(User $u, Dossier $d)
-  {
+  public function ajoutDossierAdmission(Dossier $d) {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
+    $sql = $db->prepare('SELECT COUNT(*) FROM dossier WHERE num_ss=:num_ss');
     $sql->execute(array(
-      'nom'=>$u->getNom(),
-      'prenom'=>$u->getPrenom()
+        'num_ss'=>$d->getNum_ss()
     ));
     $result = $sql->fetch();
-    $d->setId_patient($result['id']);
-    $sql = $db->prepare("INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
-    VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)");
-    $res = $sql->execute(array(
-      'id_patient'=>$d->getId_patient(),
-      'date_naissance'=>$d->getDate_naissance(),
-      'adresse_post'=>$d->getAdresse_post(),
-      'mutuelle'=>$d->getMutuelle(),
-      'optn'=>$d->getOptn(),
-      'regime'=>$d->getRegime()
-    ));
-
-    if ($res) {
+    if($result == TRUE) {
+      echo '<body onLoad="alert(\'Un des champs remplis est déjà existant\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
+    }
+    else {
+      $sql = $bd->prepare('SELECT id FROM utilisateur WHERE id=:id');
+      $sql->execute([
+          'id'=>$_SESSION['id']
+      ]);
+      $resultPatient = $sql->fetch();
+      $sql = $db->prepare('INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
+    VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)');
+      $res = $sql->execute(array(
+          'id_patient'=>$resultPatient['id'],
+          'date_naissance'=>$d->getDate_naissance(),
+          'adresse_post'=>$d->getAdresse_post(),
+          'mutuelle'=>$d->getMutuelle(),
+          'optn'=>$d->getOptn(),
+          'regime'=>$d->getRegime()
+      ));
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
-    } else {
-      echo '<body onLoad="alert(\'Veuillez remplir les champs du formulaire\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
     }
   }
 
@@ -280,16 +282,16 @@ public function afficherCategoriesMotifs() {
   $db = $this->connexionBdd();
   $sql = $db->prepare('SELECT * FROM motifs');
   $sql->execute();
-  $sql->fetchAll();
-  return $sql;
+  $result = $sql->fetchAll();
+  return $result;
 }
 
 public function afficherTypesConsultations() {
   $db = $this->connexionBdd();
   $sql = $db->prepare('SELECT * FROM consultations');
   $sql->execute();
-  $sql->fetchAll();
-  return $sql;
+  $result = $sql->fetchAll();
+  return $result;
 }
 
 public function afficherPatients() {
@@ -370,9 +372,6 @@ WHERE utilisateur.mail = :mail');
         'id' => $_SESSION['id']
     ]);
     $resultpatient = $sql->fetch();
-
-
-
     $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE nom_medecin=:nom');
     $sql->execute([
         'nom' => $_POST['medecin']
