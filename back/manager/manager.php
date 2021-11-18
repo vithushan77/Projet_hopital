@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');*
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 session_start();
 // Import PHPMailer classes into the global namespace
@@ -175,7 +175,7 @@ class manager
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
     }
     else {
-      $sql = $bd->prepare('SELECT id FROM utilisateur WHERE id=:id');
+      $sql = $db->prepare('SELECT id FROM utilisateur WHERE id=:id');
       $sql->execute([
           'id'=>$_SESSION['id']
       ]);
@@ -225,13 +225,13 @@ class manager
 
   public function adminAddMedecins(User $u, Medecin $m) {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('SELECT COUNT(*) FROM utilisateur WHERE mail=:mail AND mdp=:mdp');
+    $sql = $db->prepare('SELECT * FROM utilisateur WHERE mail=:mail AND mdp=:mdp');
     $sql->execute(array(
       'mail'=>$u->getMail(),
       'mdp'=>$u->getMdp()
     ));
     $result = $sql->fetch();
-    if($result) {
+    if($result == TRUE) {
       echo '<body onLoad="alert(\'Adresse mail ou mot de passe déjà existants\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutPraticiens.php">';
     }
