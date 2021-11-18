@@ -290,11 +290,73 @@ class manager
     }
   }
 
+  public function comptePatientUrgences(User $u, Dossier $d) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT * FROM utilisateur WHERE mail=:mail AND mdp=:mdp');
+    $sql->execute(array(
+       'mail'=>$u->getMail(),
+       'mdp'=>$u->getMdp()
+    ));
+    $result = $sql->fetch();
+    if($result == TRUE) {
+      echo '<body onLoad="alert(\'Adresse mail ou mot de passe déjà existants\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/gestionUrgences.php">';
+    }
+    else {
+      $hashedPwd = password_hash($u->getMdp(), PASSWORD_DEFAULT);
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut, etat) VALUES(:nom, :prenom,
+    :sexe, :mail, :mdp, :statut, :etat)');
+      $sql->execute(array(
+          'nom'=>$u->getNom(),
+          'prenom'=>$u->getPrenom(),
+          'sexe'=>$u->getSexe(),
+          'mail'=>$u->getMail(),
+          'mdp'=>$hashedPwd,
+          'statut'=>$u->getStatut(),
+          'etat'=>$u->getEtat()
+      ));
+      $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom:=prenom');
+      $sql->execute(array(
+          'nom'=>$u->getNom(),
+          'prenom'=>$u->getPrenom()
+      ));
+      $resultPatient = $sql->fetch();
+      $sql = $db->prepare('INSERT INTO dossier(id_patient, date_naissance, adresse_post, mutuelle, num_ss,
+    optn, regime) VALUES(:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)');
+      $sql->execute(array(
+          'id_patient'=>$d->$resultPatient,
+          'date_naissance'=>$d->getDate_naissance(),
+          'adresse_post'=>$d->getAdresse_post(),
+          'mutuelle'=>$d->getMutuelle(),
+          'num_ss'=>$d->getNum_ss(),
+          'optn'=>$d->getOptn(),
+          'regime'=>$d->getRegime()
+      ));
+      echo '<body onLoad="alert(\'Informations enregistrées avec succès\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/gestionUrgences.php">';
+    }
+  }
+
+  public function ajoutUrgences(Urgences $urg) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('INSERT INTO urgences(id_patient, symptomes, priorite, affectationCabinet,
+    passageHopital, id_hopital) VALUES(:id_patient, :symptomes, :priorite, :affectationCabinet,
+    :passageHopital, :id_hopital)');
+    $sql->execute(array(
+       'id_patient'=>$urg->getIdPatient(),
+       'symptomes'=>$urg->getSymptomes(),
+       'priorite'=>$urg->getPriorite(),
+       'affectationCabinet'=>$urg->getAffectationCabinet(),
+       'passageHopital'=>$urg->getPassageHopital(),
+       'id_hopital'=>$urg->getIdHopital()
+    ));
+  }
+
   public function ReactivateAccount(User $u) {
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Activé" WHERE id=:id');
     $sql->execute(array(
-       'etat'=>$u->getEtat()
+       'etat'=>$u->getId()
     ));
   }
 
@@ -302,7 +364,7 @@ class manager
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Désactivé" WHERE id=:id');
     $sql->execute(array(
-        'etat'=>$u->getEtat()
+        'etat'=>$u->getId()
     ));
   }
 
