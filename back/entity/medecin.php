@@ -6,7 +6,7 @@ class medecin {
   private $id_user;
   private $id_specialite;
   private $telephone;
-  private $lieu;
+  private $ville;
 
   /**
  * constructeur de la classe medecin.
