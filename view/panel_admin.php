@@ -57,7 +57,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                   border: 1px solid black;
                                   padding: 10px;
                                 }
-                                caption{
+                                caption {
                                   margin-top: 10px;
                                   margin-bottom: 10px;
                                 }
@@ -70,8 +70,8 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                     Exportation de données
                                   </h4>
                                 </caption>
-                                <form action="" method="post">
-                                  <input type="button" class="btninsc" value="Exporter en XLS">
+                                <form action="../back/exportFileXLS.php" method="post">
+                                  <input type="submit" class="btninsc" value="Exporter en XLS">
                                 </form>
 
                                 <hr>
@@ -108,6 +108,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                         <th>Sexe</th>
                                         <th>Adresse électronique</th>
                                         <th>Statut</th>
+                                        <th>Etat</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -120,6 +121,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                            <td> <?=$values['sexe']; ?></td>
                                            <td> <?=$values['mail']; ?></td>
                                            <td> <?=$values['statut']; ?></td>
+                                           <td> <?=$values['etat']; ?></td>
                                          </tr>
                                       <?php
                                         }

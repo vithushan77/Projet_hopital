@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/user.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/medecin.php');
-require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/entity/dossier-ad.php');*
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 session_start();
 // Import PHPMailer classes into the global namespace
@@ -207,15 +207,16 @@ class manager
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutUsers.php">';
     }
     else {
-      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut)
-      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)');
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut, etat)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut, :etat)');
       $sql->execute(array(
         'nom'=>$u->getNom(),
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
         'mdp'=>$u->getMdp(),
-        'statut'=>$u->getStatut()
+        'statut'=>$u->getStatut(),
+        'etat'=>$u->getEtat()
       ));
       echo '<body onLoad="alert(\'Compte HSP créé avec succès\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/view/panel_admin.php">';
@@ -235,15 +236,16 @@ class manager
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/adminAjoutPraticiens.php">';
     }
     else {
-      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut)
-      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut)');
+      $sql = $db->prepare('INSERT INTO utilisateur(nom, prenom, sexe, mail, mdp, statut, etat)
+      VALUES(:nom, :prenom, :sexe, :mail, :mdp, :statut, :etat)');
       $sql->execute(array(
         'nom'=>$u->getNom(),
         'prenom'=>$u->getPrenom(),
         'sexe'=>$u->getSexe(),
         'mail'=>$u->getMail(),
         'mdp'=>$u->getMdp(),
-        'statut'=>$u->getStatut()
+        'statut'=>$u->getStatut(),
+        'etat'=>$u->getEtat()
       ));
       $sql = $db->prepare('SELECT id FROM utilisateur WHERE nom=:nom AND prenom=:prenom');
       $sql->execute(array(
@@ -264,9 +266,33 @@ class manager
     }
   }
 
+  public function exportFile(User $u, Specialites $spe, Medecin $m) {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT utilisateur.nom, utilisateur.prenom, utilisateur.mail, 
+       specialites.nomSpe, telephone, ville  FROM medecin INNER JOIN utilisateur ON utilisateur.id = medecin.id_user 
+       INNER JOIN specialites ON specialites.id = medecin.id_specialite WHERE statut ="medecin"');
+    $sql->execute(array(
+        'nom'=>$u->getNom(),
+        'prenom'=>$u->getPrenom(),
+        'mail'=>$u->getMail(),
+        'nomSpe'=>$spe->getNomSpe(),
+        'telephone'=>$m->getTelephone(),
+        'ville'=>$m->getVille()
+    ));
+    $result = $sql->fetchAll();
+    $excel = "Nom \t Prenom \t Adresse mail \t Specialite du medecin \t Telephone \t Ville \n";
+    foreach($result as $rows) {
+      $excel.= "$rows[nom] \t $rows[prenom] \t $rows[mail] \t $rows[nomSpe] \t $rows[telephone] \t $rows[ville] \n";
+      header("Content-type: application/vnd.ms-excel");
+      header("Content-disposition: attachment; filename=DoctorFile.xls");
+      print $excel;
+      exit;
+    }
+  }
+
   public function ReactivateAccount(User $u) {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('UPDATE utilisateur SET etat=1');
+    $sql = $db->prepare('UPDATE utilisateur SET etat="Activé" WHERE id=:id');
     $sql->execute(array(
        'etat'=>$u->getEtat()
     ));
@@ -274,14 +300,14 @@ class manager
 
   public function DeactivateAccount(User $u) {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('UPDATE utilisateur SET etat=0');
+    $sql = $db->prepare('UPDATE utilisateur SET etat="Désactivé" WHERE id=:id');
     $sql->execute(array(
         'etat'=>$u->getEtat()
     ));
   }
 
   public function afficherUtilisateurs() {
-  $sql = $this->connexionBdd()->prepare('SELECT nom, prenom, sexe, mail, statut FROM utilisateur');
+  $sql = $this->connexionBdd()->prepare('SELECT nom, prenom, sexe, mail, statut, etat FROM utilisateur');
   $sql->execute();
   $result = $sql->fetchAll();
   return $result;
