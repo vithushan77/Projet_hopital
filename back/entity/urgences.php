@@ -6,7 +6,7 @@ class urgences
     private $id_patient;
     private $symptomes;
     private $priorite;
-    private $affectionCabinet;
+    private $affectationCabinet;
     private $passageHopital;
     private $id_hopital;
 
@@ -92,17 +92,17 @@ class urgences
     /**
      * @return mixed
      */
-    public function getAffectionCabinet()
+    public function getAffectationCabinet()
     {
-        return $this->affectionCabinet;
+        return $this->affectationCabinet;
     }
 
     /**
-     * @param mixed $affectionCabinet
+     * @param mixed $affectationCabinet
      */
-    public function setAffectionCabinet($affectionCabinet)
+    public function setAffectationCabinet($affectationCabinet)
     {
-        $this->affectionCabinet = $affectionCabinet;
+        $this->affectationCabinet = $affectationCabinet;
     }
 
     /**
