@@ -122,6 +122,20 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                            <td> <?=$values['mail']; ?></td>
                                            <td> <?=$values['statut']; ?></td>
                                            <td> <?=$values['etat']; ?></td>
+                                           <td> <?php
+                                               if($values['etat'] == 'Activé') {
+                                               ?>
+                                               <form action="../back/adminDesactiverCompte.php" method="post">
+                                                   <input type="submit" class="btninsc" value="Désactiver">
+                                               </form>
+                                               <?php }
+                                               elseif($values['etat'] == 'Désactivé') { ?>
+                                               <form action="../back/adminActiverCompte.php" method="post">
+                                                   <input type="submit" class="btninsc" value="Activer">
+                                               </form>
+                                               <?php } ?>
+                                           </td>
+
                                          </tr>
                                       <?php
                                         }
