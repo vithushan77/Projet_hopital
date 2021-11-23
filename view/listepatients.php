@@ -76,15 +76,14 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
 
                         <hr>
 
-                        <!-- Boutons redirigeant vers des formulaires permettant d'ajouter différents utilisateurs (médecins/administrateurs) -->
+                        <!-- Bouton redirigeant vers un formulaire permettant d'ajouter des patients -->
 
                         <caption>
                             <h4>
-                                Ajout de nouveaux utilisateurs
+                                Ajout de nouveaux patients
                             </h4>
                         </caption>
-                        <input type="button" class="btninsc" value="Ajouter nouveaux utilisateurs" onClick="location.href='../forms/adminAjoutUsers.php'">
-                        <input type="button" class="btninsc" value="Ajouter nouveaux praticiens" onClick="location.href='../forms/adminAjoutPraticiens.php'">
+                        <input type="button" class="btninsc" value="Ajouter nouveaux patients" onClick="location.href='../forms/urgentisteAjoutPatient.php'">
                         <hr>
 
                         <!-- Tableau affichant une liste d'utilisateurs -->
