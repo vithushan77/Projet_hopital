@@ -28,7 +28,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
-$medecins = $manager->lemedecin();
+$med = $manager->lemedecin();
 $rdv = $manager->getLesrdv();
 $resultrdv = $manager->getUserRdv();
 $categoriesMotifs = $manager->afficherCategoriesMotifs();
@@ -53,8 +53,8 @@ var_dump($_SESSION);
                                         <label for="">Choisissez votre médecin:</label>
                                         <select name="nom" class="selectrdv" required>
                                             <?php
-                                            foreach ($medecins as $keys => $value1){ ?>
-                                                <option value=""><?='Dr','.',$value1['nom']?></option>
+                                            foreach ($med as $value1){ ?>
+                                                <option value="<?= $value1['nom']?>"><?='Dr','.',$value1['nom']?></option>
                                             <?php } ?>
                                         </select>
                                 </div>
@@ -62,7 +62,7 @@ var_dump($_SESSION);
                                 <div class="col-md-12">
                                     <label for="">Catégorie de motif :</label>
                                     <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($categoriesMotifs as $keys => $values) { ?>
+                                        <?php foreach($categoriesMotifs as $values) { ?>
                                         <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
                                         <?php } ?>
                                     </select>
@@ -71,15 +71,15 @@ var_dump($_SESSION);
                                 <div class="col-md-12">
                                     <label for="">Motif de consultation :</label>
                                     <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($typesConsultations as $keys => $values) { ?>
-                                            <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
+                                        <?php foreach($typesConsultations as $values2) { ?>
+                                            <option value="<?=$values2['id']?>"><?=$values2['libelle']?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="col-md-12">
                                     <label for="">Choisir l'heure du RDV:</label>
-                                    <select name="rdvpatiant" class="selectrdv">
+                                    <select name="heure" class="selectrdv">
                                         <?php
                                         foreach ($res as $value){?>
                                             <option value="<?php echo $value['heure'];?>"><?php echo $value['heure'];?></option>
