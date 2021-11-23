@@ -168,7 +168,8 @@ class manager
 
   public function lemedecin()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT nom FROM utilisateur WHERE statut="medecin" ');
+    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom FROM medecin
+INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $sql->execute();
     $result = $sql->fetchAll();
     return $result;
@@ -498,38 +499,56 @@ WHERE utilisateur.mail = :mail');
 
 
   public function priseRDVpatient($infordv)
-  {
-    var_dump($_POST);
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur WHERE id=:id');
+    {
+//    var_dump($data);
+    $sql = $this->connexionBdd()->prepare('SELECT id_user FROM medecin
+INNER JOIN utilisateur ON medecin.id_user = utilisateur.id
+WHERE utilisateur.nom =:nom');
     $sql->execute([
-        'id' => $_SESSION['id']
+        'nom' => $infordv['nom']
     ]);
     $resultpatient = $sql->fetch();
-    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin WHERE nom_medecin=:nom');
+
+//    var_dump($resultpatient);
+
+    $sql = $this->connexionBdd()->prepare('SELECT medecin.id FROM medecin
+INNER JOIN utilisateur ON utilisateur.id = id_user
+WHERE utilisateur.mail = :mail');
     $sql->execute([
-        'nom' => $_POST['medecin']
+        'mail' => $_SESSION['mail']
     ]);
     $resultmedecin = $sql->fetch();
+//    var_dump($resultmedecin);
+//    var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
-        'heure' => $_POST['rdvpatient']
+        'heure' => $infordv['heure']
     ]);
     $resultheure = $sql->fetch();
-    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_utilisateur, id_heure, id_medecin)
-      VALUES (:id_utilisateur, :id_heure, :id_medecin)');
-    $res = $sql->execute([
+//    var_dump($resultheure);
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_patient, id_heure, id_medecin)
+      VALUES (:id_patient, :id_heure, :id_medecin)');
+      $res = $sql->execute([
         'id_medecin' => $resultmedecin['id'],
-        'id_utilisateur' => $resultpatient['id'],
+        'id_patient' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
     ]);
+//    echo "heure : " . $resultheure['id'];
+//    echo "patient : " . $resultpatient['id'];
+//    echo "medecin : " . $resultmedecin['id'];
+//    var_dump($sql);
+//    var_dump($res);
+//    echo $res;
+//    exit;
 
     if ($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
     } else {
       echo '<body onLoad="alert(\'Erreur dans la prise de RDV\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
     }
+
   }
 
   public function getLesrdv()
@@ -626,47 +645,6 @@ WHERE rdv.id_medecin = :id_medecin');
     echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
   }
 
-//  public function mail($a)
-//  {
-//    //PHP MAILER
-//    //Instantiation and passing `true` enables exceptions
-//    $mail = new PHPMailer(true);
-//
-//
-//
-//    try {
-//      //Server settings
-//      $mail->CharSet = 'UTF-8';
-//      $mail->SMTPDebug = 4;                      // Enable verbose debug output
-//      $mail->isSMTP();                                            // Send using SMTP
-//      $mail->Host = 'smtp.gmail.com';                    // Set the SMTP server to send through
-//      $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-//      $mail->Username = 'tom441325@gmail.com';                     // SMTP username
-//      $mail->Password = 'Loldelol2';                               // SMTP password
-//      $mail->SMTPSecure = 'tls';         // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS encouraged
-//      $mail->Port = 587;                                    // TCP port to connect to, use 465 for PHPMailer::ENCRYPTION_SMTPS above
-//
-//      //Recipients
-//      $mail->setFrom('tom441325@gmail.com', 'NE PAS REPONDRE');
-//      $mail->addAddress($a->getMail(), $a->getNom());     // Add a recipient
-//      $mail->addReplyTo('tom441325@gmail.com', 'NE PAS REPONDRE');
-//      // Attachments
-//      //  $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-//      //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-//
-//      // Content
-//      //$mail->isHTML(true);                                  // Set email format to HTML
-//      $mail->Subject = 'Bienvenue ! ';
-//      $mail->Body = 'Bienvenue sur le site du Lycée de <b>Dugny!</b> : https://www.google.fr';
-//      $mail->AltBody = 'Bienvenue sur le site du Lycée de Dugny!';
-//
-//      $mail->send();
-//      echo 'Message has been sent';
-//
-//    } catch (Exception $e) {
-//      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-//    }
-//  }
 
 
   public function setOrdonnance($data)
@@ -699,6 +677,7 @@ WHERE rdv.id_medecin = :id_medecin');
     $res = $sql->fetch();
     return $res;
   }
+  
 
   public function phpmail($a)
   {  //PHP MAILER
