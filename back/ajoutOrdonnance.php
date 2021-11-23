@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
-var_dump($_FILES);
+//var_dump($_FILES);
 
 //verifie que tout va bien pour le fichier
 if ($_FILES['ordonnance']['size']!=0) {
@@ -19,7 +19,8 @@ if ($_FILES['ordonnance']['size']!=0) {
 }
 
 else {
-    echo "erreur";
+    echo '<body onLoad="alert(\'Erreur dans lordonnance\')">';
+    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
 }
 //
 //$manager->setSAV($array);

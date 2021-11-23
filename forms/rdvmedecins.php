@@ -18,7 +18,7 @@
 <body>
 <header>
     <h1 class="site-heading text-center text-faded d-none d-lg-block">
-        <span class="site-heading-lower">Espace utilisateur</span>
+        <span class="site-heading-lower">Espace ordonnance</span>
     </h1>
 </header>
 <!-- Navbar-->
@@ -90,24 +90,30 @@ $resultrdv = $manager->getUserRdv();
                                             <?php } ?>
 
                                     </form>
+
+                                    <?php $ord = $manager->getOrdonnance($value['id']); ?>
+                                    <?php if (!isset($ord['fichier'])){ ?>
                                     <form action="../view/ordonnance.php" method="post">
                                             <a href="/Projet_hopital/view/ordonnance.php"><button class="btninsc">Ordonnance</button></a>
                                         <input type="hidden" value="<?= $value['id'] ?>" name="id_rdv" />
                                     </form>
                                         </p>
 
-                                    <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">
-                                    <?php } ?>
-                                        <?php $a = "61938a9ac232d.pdf";
+                                        <?php }
+                                    if (isset($ord['fichier'])){
+                                        $a = $ord['fichier'];
                                         if (isset($a)) { ?>
-                                            <div style="margin-top: 10px">
-                                                <form method="post" action="../back/telechargerFichier.php">
-                                                    <input type="hidden" name="fichier" value="<?= $a ?>">
-                                                    <input type="submit" value="Télécharger" class="btn-valider">
+                                            <form method="post" action="../back/telechargerFichier.php">
+                                                <input type="hidden" name="fichier" value="<?= $a ?>">
+                                                <input type="submit" value="Télécharger" class="btninsc">
+                                            </form>
 
-                                                </form>
-                                            </div>
-                                        <?php } ?>
+                                        <?php }}
+                                    ?>
+                                    <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">
+                                   <?php } ?>
+
+
                                 </div>
                             </div>
                     </div>

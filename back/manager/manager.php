@@ -654,5 +654,15 @@ die();
 
 
   }
+
+  public function getOrdonnance($data){
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM ordonnance INNER JOIN rdv ON ordonnance.id_rdv = rdv.id WHERE id_rdv = :id_rdv');
+    $sql->execute(array(
+        'id_rdv' => $data
+    ));
+    $res = $sql->fetch();
+    return $res;
+  }
+
 }
 ?>
