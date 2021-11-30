@@ -169,7 +169,7 @@ class manager
 
   public function lemedecin()
   {
-    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom FROM medecin
+    $sql = $this->connexionBdd()->prepare('SELECT utilisateur.nom,medecin.id FROM medecin
 INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $sql->execute();
     $result = $sql->fetchAll();
@@ -499,43 +499,39 @@ WHERE utilisateur.mail = :mail');
   }
 
 
-  public function priseRDVpatient($infordv)
+  public function priseRDVpatient($infordv1)
     {
-//    var_dump($data);
-    $sql = $this->connexionBdd()->prepare('SELECT id_user FROM medecin
-INNER JOIN utilisateur ON medecin.id_user = utilisateur.id
-WHERE utilisateur.nom =:nom');
+    $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin where id = :id');
     $sql->execute([
-        'nom' => $infordv['nom']
+        'id' => $infordv1['nom']
     ]);
     $resultmedecin = $sql->fetch();
 
-  var_dump($resultmedecin);
+  //var_dump($resultmedecin);
 
     $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur where mail =:mail ');
     $sql->execute([
         'mail' => $_SESSION['mail']
     ]);
     $resultpatient = $sql->fetch();
-        var_dump($resultpatient);
-    var_dump($_SESSION);
+       //var_dump($resultpatient);
+   //var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
-        'heure' => $infordv['heure']
+        'heure' => $infordv1['heure']
     ]);
     $resultheure = $sql->fetch();
-   var_dump($resultheure);
-    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_patient, id_heure, id_medecin)
-      VALUES (:id_patient, :id_heure, :id_medecin)');
+   //var_dump($resultheure);
+    $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_heure, id_patient, id_medecin)
+      VALUES (:id_heure, :id_patient, :id_medecin)');
       $res = $sql->execute([
-        'id_medecin' => $resultmedecin['id_user'],
+        'id_medecin' => $resultmedecin['id'],
         'id_patient' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
     ]);
     echo "heure : " . $resultheure['id'];
     echo "patient : " . $resultpatient['id'];
-    echo "medecin : " . $resultmedecin['id_user'];
-    var_dump($sql);
+    echo "medecin : " . $resultmedecin['id'];
     var_dump($res);
     echo $res;
     exit();

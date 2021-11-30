@@ -54,29 +54,15 @@ var_dump($_SESSION);
                                         <select name="nom" class="selectrdv" required>
                                             <?php
                                             foreach ($med as $value1){ ?>
-                                                <option value="<?= $value1['nom']?>"><?='Dr','.',$value1['nom']?></option>
+                                                <option value="<?= $value1['id']?>"><?='Dr','.',$value1['nom']?></option>
                                             <?php } ?>
                                         </select>
                                 </div>
-
+                                <br></br>
                                 <div class="col-md-12">
-                                    <label for="">Catégorie de motif :</label>
-                                    <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($categoriesMotifs as $values) { ?>
-                                        <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <label for="">Choisir la date  :</label>
+                                    <input type="date" name="daterdv" class="" id="date" min="<?= date('Y-m-d'); ?>"/>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <label for="">Motif de consultation :</label>
-                                    <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($typesConsultations as $values2) { ?>
-                                            <option value="<?=$values2['id']?>"><?=$values2['libelle']?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-
                                 <div class="col-md-12">
                                     <label for="">Choisir l'heure du RDV:</label>
                                     <select name="heure" class="selectrdv">
@@ -117,7 +103,7 @@ var_dump($_SESSION);
                                 <td><?=$value2['heure']?></td>
                                 <td><?=$value2['nom']?></td>
                                 <td><?=$value2['prenom']?></td>
-                                <td><?=$value2['nom_medecin'] ?></td>
+                                <td><?=$value2['nom'] ?></td>
                             </tr>
                             </tbody>
                         </table>
