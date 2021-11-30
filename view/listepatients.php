@@ -67,12 +67,10 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
 
                         <caption>
                             <h4>
-                                Exportation de données
+                                Gestion d'urgences
                             </h4>
                         </caption>
-                        <form action="" method="post">
-                            <input type="button" class="btninsc" value="Exporter en XLS">
-                        </form>
+                        <input type="button" class="btninsc" value="Gestion d'urgences" onClick="location.href='../view/gestionUrgences.php'">
 
                         <hr>
 

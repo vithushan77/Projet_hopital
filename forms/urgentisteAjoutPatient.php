@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Panel d'administration - Création de compte HSP</title>
+    <title>Panel Urgentiste - Création de compte HSP</title>
     <link rel="icon" type="image/x-icon" href="/Projet_hopital/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -102,7 +102,7 @@ include '../include/header.php';
 
                                 <div class="col-md-4">
                                     <label for="">Régime</label>
-                                    <select name="sexe" class="form-control" required>
+                                    <select name="regime" class="form-control" required>
                                         <optgroup label="">
                                             <option value="Aucun">Aucun</option>
                                             <option value="Végétarien">Végétarien</option>
