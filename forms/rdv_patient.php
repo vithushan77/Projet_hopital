@@ -33,7 +33,6 @@ $rdv = $manager->getLesrdv();
 $resultrdv = $manager->getUserRdv();
 $categoriesMotifs = $manager->afficherCategoriesMotifs();
 $typesConsultations = $manager->afficherTypesConsultations();
-var_dump($_SESSION);
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -59,6 +58,21 @@ var_dump($_SESSION);
                                         </select>
                                 </div>
                                 <br></br>
+                                <div class="col-md-12">
+                                <label for="">Motif de consultation :</label>
+                                <select name="libelle" class="selectmot" required>
+                                    <?php foreach($typesConsultations as $keys => $values) { ?>
+                                    <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
+                                    <?php } ?>
+                                </select>
+                                    <div class="col-md-12">
+                                        <label for="">Catégorie de motif :</label>
+                                        <select name="libelle" class="selectmot" required>
+                                            <?php foreach($categoriesMotifs as $keys => $values) { ?>
+                                                <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 <div class="col-md-12">
                                     <label for="">Choisir la date  :</label>
                                     <input type="date" name="daterdv" class="" id="date" min="<?= date('Y-m-d'); ?>"/>

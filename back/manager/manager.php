@@ -529,19 +529,19 @@ WHERE utilisateur.mail = :mail');
         'id_patient' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
     ]);
-    echo "heure : " . $resultheure['id'];
-    echo "patient : " . $resultpatient['id'];
-    echo "medecin : " . $resultmedecin['id'];
-    var_dump($res);
-    echo $res;
-    exit();
+    //echo "heure : " . $resultheure['id'];
+    //echo "patient : " . $resultpatient['id'];
+    //echo "medecin : " . $resultmedecin['id'];
+    //var_dump($res);
+    //echo $res;
+    //exit();
 
     if ($res) {
       echo '<body onLoad="alert(\'Prise de rendez-vous réussie\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
     } else {
       echo '<body onLoad="alert(\'Erreur dans la prise de RDV\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
     }
 
   }
@@ -632,7 +632,6 @@ WHERE rdv.id_medecin = :id_medecin');
   public function deleterdv($data1)
   {
     $sql = $this->connexionBdd()->prepare('DELETE FROM `rdv` WHERE id=:id');
-    var_dump();
     $sql->execute(array(
         'id' => $data1['id']
     ));
