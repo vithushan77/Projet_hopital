@@ -41,7 +41,7 @@ include '../include/header.php';
                             <span class="section-heading-upper">Création d'un compte HSP pour les patients</span>
                         </h2>
 
-                        <form action="../back/urgentisteAjout.php.php" method="post" >
+                        <form action="../back/urgentisteAjout.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="">Nom de naissance</label>
@@ -67,50 +67,6 @@ include '../include/header.php';
                                 <div class="col-md-12">
                                     <label for="">Adresse mail</label>
                                     <input type="email" class="form-control" name="mail" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="">Date de naissance</label>
-                                    <input type="date" class="form-control" name="date_naissance" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="">Adresse postale</label>
-                                    <input type="text" class="form-control" name="adresse_post" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="">Mutuelle</label>
-                                    <input type="text" class="form-control" name="mutuelle" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="">Numéro de sécurité sociale</label>
-                                    <input type="text" class="form-control" name="num_ss" required>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="">Option</label>
-                                    <select name="optn" class="form-control" required>
-                                        <optgroup label="">
-                                            <option value="Aucun">Aucun</option>
-                                            <option value="Tele">Télé</option>
-                                            <option value="Wifi">Wifi</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="">Régime</label>
-                                    <select name="regime" class="form-control" required>
-                                        <optgroup label="">
-                                            <option value="Aucun">Aucun</option>
-                                            <option value="Végétarien">Végétarien</option>
-                                            <option value="Végétalien">Végétalien</option>
-                                            <option value="Pescetarien">Pescetarien</option>
-                                            <option value="Flexitarien">Flexitarien</option>
-                                        </optgroup>
-                                    </select>
                                 </div>
 
                                 <div class="col-md-12">

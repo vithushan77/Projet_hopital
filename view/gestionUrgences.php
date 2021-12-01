@@ -18,12 +18,15 @@
 <body>
 <header>
     <h1 class="site-heading text-center text-faded d-none d-lg-block">
-        <span class="site-heading-lower">Création de compte HSP pour les patients</span>
+        <span class="site-heading-lower">Gestion d'urgences</span>
     </h1>
 </header>
 <!-- Navbar-->
 <?php
 include '../include/header.php';
+require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
+$manager = new manager();
+$hopitaux = $manager->afficherHopitaux();
 ?>
 <section class="page-section about-heading">
     <div class="container">
@@ -38,85 +41,82 @@ include '../include/header.php';
                     <div class="bg-faded rounded p-5">
                         <a href="/Projet_hopital/view/listepatients.php"/>Retour</a></p>
                         <h2 class="section-heading mb-4">
-                            <span class="section-heading-upper">Création d'un compte HSP pour les patients</span>
+                            <span class="section-heading-upper">Gestion d'urgences</span>
                         </h2>
 
-                        <form action="../back/urgentisteAjout.php.php" method="post" >
+                        <form action="../back/urgentisteAjout.php" method="post" >
                             <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label for="">Nom de naissance</label>
-                                    <input type="text" class="form-control" name="nom" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="">Prénom</label>
-                                    <input type="text" class="form-control" name="prenom" required>
+                                <div class="col-md-4">
+                                    <label for="">Numéro du patient</label>
+                                    <input type="text" class="form-control" name="id_patient" required>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="">Sexe</label>
-                                    <select name="sexe" class="form-control" required>
+                                    <label for="">Priorité du patient :</label>
+                                    <select name="priorite" class="form-control" required>
                                         <optgroup label="">
                                             <option value="--/--">--/--</option>
-                                            <option value="homme">HOMME</option>
-                                            <option value="femme">FEMME</option>
+                                            <option value="Basse">Basse</option>
+                                            <option value="Moyenne">Moyenne</option>
+                                            <option value="Haute">Haute</option>
                                         </optgroup>
                                     </select>
                                 </div>
+
+                                <div class="col-md-6">
+                                    <label for="">Le patient est-affecté dans un cabinet ?</label>
+                                    <select name="affectationCabinet" class="form-control" required>
+                                      <option value="--/--">--/--</option>
+                                      <option value="Pas encore">Pas encore</option>
+                                      <option value="Oui">Oui</option>
+                                      <option value="Non">Non</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="">Le patient est-il affecté dans un hôpital ?</label>
+                                    <select name="passageHopital" class="form-control" required>
+                                      <option value="--/--">--/--</option>
+                                      <option value="Pas encore">Pas encore</option>
+                                      <option value="Oui">Oui</option>
+                                      <option value="Non">Non</option>
+                                    </select>
+                                </div>
+
+                                <!-- Liste déroulante pour sélectionner un hôpital -->
 
                                 <div class="col-md-12">
-                                    <label for="">Adresse mail</label>
-                                    <input type="email" class="form-control" name="mail" required>
+                                  <label for="">Passage aux urgences à :</label>
+                                  <select name="nomHopitaux" class="form-control" required>
+                                    <option value="Aucun">Aucun</option>
+                                    <?php foreach ($hopitaux as $keys => $values) { ?>
+                                    <option value="<?=$values['id']?>"><?="L'",$values['nomHopitaux'],',&nbsp',$values['adresse']?></option>
+                                  <?php } ?>
+                                  </select>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <label for="">Date de naissance</label>
-                                    <input type="date" class="form-control" name="date_naissance" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
-                                </div>
+                                <!-- Ajout de style du champs de texte -->
 
-                                <div class="col-md-6">
-                                    <label for="">Adresse postale</label>
-                                    <input type="text" class="form-control" name="adresse_post" required>
-                                </div>
+                                <style>
+                                textarea {
+                                  font-size: .8rem;
+                                  letter-spacing: 1px;
+                                  padding: 10px;
+                                  max-width: 100%;
+                                  line-height: 1.5;
+                                  border-radius: 5px;
+                                  border: 1px solid #ccc;
+                                  box-shadow: 1px 1px 1px #999;
+                                }
+                                </style>
 
-                                <div class="col-md-6">
-                                    <label for="">Mutuelle</label>
-                                    <input type="text" class="form-control" name="mutuelle" required>
-                                </div>
 
-                                <div class="col-md-6">
-                                    <label for="">Numéro de sécurité sociale</label>
-                                    <input type="text" class="form-control" name="num_ss" required>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="">Option</label>
-                                    <select name="optn" class="form-control" required>
-                                        <optgroup label="">
-                                            <option value="Aucun">Aucun</option>
-                                            <option value="Tele">Télé</option>
-                                            <option value="Wifi">Wifi</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <label for="">Régime</label>
-                                    <select name="sexe" class="form-control" required>
-                                        <optgroup label="">
-                                            <option value="Aucun">Aucun</option>
-                                            <option value="Végétarien">Végétarien</option>
-                                            <option value="Végétalien">Végétalien</option>
-                                            <option value="Pescetarien">Pescetarien</option>
-                                            <option value="Flexitarien">Flexitarien</option>
-                                        </optgroup>
-                                    </select>
-                                </div>
-
+                                <!-- Champs de texte pour décrire les symptômes du patient -->
                                 <div class="col-md-12">
-                                    <label for="">Créer un mot de passe</label>
-                                    <input type="password" class="form-control" name="mdp"  minlength="4" maxlength="62" required><br>
+                                  <label for="">Description des symptômes du patient :</label>
+                                  <textarea class="form-control" name="symptomes" rows="5" cols="30" maxlength="255" required></textarea>
                                 </div>
+
                                 <div>
                                     <button type="submit" class="btninsc">Créer un compte</button>
                                     <button type="reset" class="btninsc">Réinitialiser</button>

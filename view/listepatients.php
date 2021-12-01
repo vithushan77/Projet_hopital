@@ -84,6 +84,16 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                         <input type="button" class="btninsc" value="Ajouter nouveaux patients" onClick="location.href='../forms/urgentisteAjoutPatient.php'">
                         <hr>
 
+                        <!--  Bouton redirigeant vers un formulaire pour la création de dossier des patients -->
+
+                        <caption>
+                          <h4>
+                            Création dossier patients
+                          </h4>
+                          <input type="button" class="btninsc" value="Créer dossier d'admission" onClick="location.href='../forms/urgentisteAjoutDossier.php'">
+                        </caption>
+                        <hr>
+
                         <!-- Tableau affichant une liste d'utilisateurs -->
 
                         <caption>
