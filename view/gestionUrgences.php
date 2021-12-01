@@ -114,7 +114,7 @@ $hopitaux = $manager->afficherHopitaux();
                                 <!-- Champs de texte pour décrire les symptômes du patient -->
                                 <div class="col-md-12">
                                   <label for="">Description des symptômes du patient :</label>
-                                  <textarea class="form-control" name="symptomes" rows="5" cols="30" maxlength="255" required></textarea>
+                                  <textarea class="form-control" name="symptomes" rows="5" cols="30" maxlength="255" placeholder="Décrire les symptômes du patient" required></textarea>
                                 </div>
 
                                 <div>

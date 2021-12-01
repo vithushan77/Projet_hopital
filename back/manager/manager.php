@@ -291,8 +291,8 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
   public function exportFile(User $u, Specialites $spe, Medecin $m)
   {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('SELECT utilisateur.nom, utilisateur.prenom, utilisateur.mail, 
-       specialites.nomSpe, telephone, ville  FROM medecin INNER JOIN utilisateur ON utilisateur.id = medecin.id_user 
+    $sql = $db->prepare('SELECT utilisateur.nom, utilisateur.prenom, utilisateur.mail,
+       specialites.nomSpe, telephone, ville  FROM medecin INNER JOIN utilisateur ON utilisateur.id = medecin.id_user
        INNER JOIN specialites ON specialites.id = medecin.id_specialite WHERE statut ="medecin"');
     $sql->execute(array(
         'nom' => $u->getNom(),
@@ -381,7 +381,8 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Activé" WHERE id=:id');
     $sql->execute(array(
-        'etat' => $u->getId()
+      'id'=>$u->getId(),
+      'etat' => "Activé"
     ));
   }
 
@@ -390,9 +391,19 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Désactivé" WHERE id=:id');
     $sql->execute(array(
-        'etat' => $u->getId()
+      'id'=>$u->getId(),
+      'etat' => "Désactivé"
     ));
   }
+
+  public function afficherHopitaux() {
+    $db = $this->connexionBdd();
+    $sql = $db->prepare('SELECT * FROM hopitaux');
+    $sql->execute();
+    $result = $sql->fetchAll();
+    return $result;
+  }
+
 
   public function afficherUtilisateurs()
   {
