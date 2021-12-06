@@ -25,6 +25,7 @@
 </header>
 <!-- Navbar-->
 <?php include '../include/header.php';
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
@@ -99,6 +100,15 @@ $typesConsultations = $manager->afficherTypesConsultations();
                 <div class="card">
                     <h5 class="card-header">Vos Rendez-vous à venir</h5>
                     <?php
+                    $db = new PDO('mysql:host=' . $_ENV["bdd_host"] . ';dbname=' . $_ENV["bdd_name"] . ';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+                    $sql= $db->prepare('SELECT nom from utilisateur INNER JOIN medecin ON medecin.id_user = utilisateur.id INNER JOIN rdv ON rdv.id_medecin = medecin.id where rdv.id = :id');
+                    $res = $sql->execute(array(
+                            'id'=>
+                    ));
+                    echo '<pre>';
+                    print_r($la_valeur_de_l_id);
+                    echo '<pre>';
+                    die();
                     foreach ($resultrdv as $value2){
                     ?>
                     <div class="card-body">
@@ -117,7 +127,7 @@ $typesConsultations = $manager->afficherTypesConsultations();
                                 <td><?=$value2['heure']?></td>
                                 <td><?=$value2['nom']?></td>
                                 <td><?=$value2['prenom']?></td>
-                                <td><?=$value2['nom'] ?></td>
+                                <td><?=$sql['nom']?></td>
                             </tr>
                             </tbody>
                         </table>

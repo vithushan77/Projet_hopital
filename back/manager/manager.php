@@ -606,6 +606,7 @@ WHERE rdv.id_patient = :id_utilisateur');
       return $res;
     }
 
+
     if ($_SESSION['statut'] == "medecin") {
       $sql = $this->connexionBdd()->prepare('SELECT medecin.id FROM medecin
 INNER JOIN utilisateur ON utilisateur.id = id_user
