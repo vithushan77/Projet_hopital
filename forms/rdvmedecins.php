@@ -72,6 +72,7 @@ $resultrdv = $manager->getUserRdv();
                                 </div>
                             </div>
                         </form>
+                        <a href="enregistrementPatient.php"><button class="btninsc">Enregistrer un patient</button></a>
                                 <br>
                                 <hr style="height: 7px; margin-top: 7px; color: black">
                                 <div style="border: solid; border-radius: 3px; border-color: #c8ad7f;">

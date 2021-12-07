@@ -74,6 +74,13 @@
                                           <button type="submit" class="btninsc">Valider</button>
                                       </div>
                                 </form>
+                                <br>
+                                <form action="../back/congemedecin.php" method="post">
+                                <div class="col-md-12">
+                                    <input type="date" min="<?= date('Y-m-d'); ?>" name="dateconge" required>
+                                    <input type="submit" class="btninsc" value="Partir en congé">
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

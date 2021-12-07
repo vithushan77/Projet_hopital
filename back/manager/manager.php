@@ -188,26 +188,27 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
   public function ajoutDossierAdmission(Dossier $d)
   {
     $db = $this->connexionBdd();
-    $sql = $db->prepare('SELECT COUNT(*) FROM dossier WHERE num_ss=:num_ss');
-    $sql->execute(array(
-        'num_ss' => $d->getNum_ss()
-    ));
-    $result = $sql->fetch();
-    if ($result == TRUE) {
-      echo '<body onLoad="alert(\'Un des champs remplis est déjà existant\')">';
-      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
-    } else {
-      $sql = $db->prepare('SELECT id FROM utilisateur WHERE id=:id');
-      $sql->execute([
-          'id' => $_SESSION['id']
-      ]);
-      $resultPatient = $sql->fetch();
+//    $sql = $db->prepare('SELECT COUNT(*) FROM dossier WHERE num_ss=:num_ss');
+//    $sql->execute(array(
+//        'num_ss' => $d->getNum_ss()
+//    ));
+//    $result = $sql->fetch();
+//    if ($result == TRUE) {
+//      echo '<body onLoad="alert(\'Un des champs remplis est déjà existant\')">';
+//      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/dossierAdmission.php">';
+//    } else {
+//      $sql = $db->prepare('SELECT id FROM utilisateur WHERE id=:id');
+//      $sql->execute([
+//          'id' => $_SESSION['id']
+//      ]);
+//      $resultPatient = $sql->fetch();
       $sql = $db->prepare('INSERT INTO dossier (id_patient, date_naissance, adresse_post, mutuelle, num_ss, optn, regime)
     VALUES (:id_patient, :date_naissance, :adresse_post, :mutuelle, :num_ss, :optn, :regime)');
       $res = $sql->execute(array(
-          'id_patient' => $resultPatient['id'],
+          'id_patient' => $_SESSION['id'],
           'date_naissance' => $d->getDate_naissance(),
           'adresse_post' => $d->getAdresse_post(),
+          'num_ss' => $d->getNum_ss(),
           'mutuelle' => $d->getMutuelle(),
           'optn' => $d->getOptn(),
           'regime' => $d->getRegime()
@@ -215,7 +216,6 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
       echo '<body onLoad="alert(\'Informations du dossier enregistrées\')">';
       echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/moncompte.php">';
     }
-  }
 
   public function adminAddUsers(User $u)
   {
@@ -623,14 +623,17 @@ WHERE rdv.id_medecin = :id_medecin');
 
   public function annulerRDV($data)
   {
+
+    $sql = $this->connexionBdd()->prepare('DELETE FROM `ordonnance` WHERE id_rdv = :id_rdv;');
+    $sql->execute(array(
+        'id_rdv' => $data['id']
+    ));
     $sql = $this->connexionBdd()->prepare('DELETE FROM `rdv` WHERE id=:id');
     $sql->execute(array(
         'id' => $data['id']
     ));
-    // echo '<body onLoad="alert(\'Annulation réussie\')">';
-    //echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
-    exit();
-    die();
+     echo '<body onLoad="alert(\'Annulation réussie\')">';
+    echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
   }
 
   public function deleterdv($data1)
@@ -643,6 +646,26 @@ WHERE rdv.id_medecin = :id_medecin');
     echo '<body onLoad="alert(\'Annulation réussie\')">';
     echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdv_patient.php">';
   }
+
+
+
+  public function addPatientDossier($data)
+  {
+    $sql = $this->connexionBdd()->prepare('SELECT * FROM dossier WHERE id_patient = :id_patient');
+    $sql->execute(array(
+        'id_patient' => $data['patient']
+    ));
+    $res = $sql->fetchAll();
+    if (empty($res)){
+      echo '<body onLoad="alert(\'Ce patient na pas rempli son dossier!\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+    else{
+      echo '<body onLoad="alert(\'Compte patient créer!\')">';
+      echo '<meta http-equiv="refresh" content="0;URL=/Projet_hopital/forms/rdvmedecins.php">';
+    }
+  }
+
 
 
 
@@ -717,6 +740,57 @@ WHERE rdv.id_medecin = :id_medecin');
     } catch (Exception $e) {
       echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
+  }
+
+  function pdoToCsv ()
+  {
+
+//Connect to MySQL using PDO.
+    $pdo = new PDO('mysql:host=' . $_ENV["bdd_host"] . ';dbname=' . $_ENV["bdd_name"] . ';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+
+
+//Create our SQL query.
+$sql = "SELECT * FROM medecin
+INNER JOIN utilisateur ON id_user = utilisateur.id";
+
+//Prepare our SQL query.
+$statement = $pdo->prepare($sql);
+
+//Executre our SQL query.
+$statement->execute();
+
+//Fetch all of the rows from our MySQL table.
+$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//Get the column names.
+$columnNames = array();
+if(!empty($rows)){
+  //We only need to loop through the first row of our result
+  //in order to collate the column names.
+  $firstRow = $rows[0];
+  foreach($firstRow as $colName => $val){
+    $columnNames[] = $colName;
+  }
+}
+
+//Setup the filename that our CSV will have when it is downloaded.
+$fileName = 'LaListeDesMedecins.csv';
+
+//Set the Content-Type and Content-Disposition headers to force the download.
+header('Content-Type: application/excel');
+header('Content-Disposition: attachment; filename="' . $fileName . '"');
+
+//Open up a file pointer
+$fp = fopen('php://output', 'w');
+
+//Start off by writing the column names to the file.
+fputcsv($fp, $columnNames);
+
+//Then, loop through the rows and write them to the CSV file.
+foreach ($rows as $row) {
+  fputcsv($fp, $row);
+}
+
   }
 }
 ?>

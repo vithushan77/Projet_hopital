@@ -95,7 +95,7 @@
 
                                     <div class="col-md-4">
                                       <label for="">Régime</label>
-                                      <select name="sexe" class="form-control" required>
+                                      <select name="regime" class="form-control" required>
                                         <optgroup label="">
                                           <option value="Aucun">Aucun</option>
                                           <option value="Végétarien">Végétarien</option>
