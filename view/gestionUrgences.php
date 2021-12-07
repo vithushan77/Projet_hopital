@@ -44,7 +44,7 @@ $hopitaux = $manager->afficherHopitaux();
                             <span class="section-heading-upper">Gestion d'urgences</span>
                         </h2>
 
-                        <form action="../back/urgentisteAjout.php" method="post" >
+                        <form action="../back/gestionUrgencesBack.php" method="post" >
                             <div class="form-group row">
                                 <div class="col-md-4">
                                     <label for="">Numéro du patient</label>
@@ -118,7 +118,7 @@ $hopitaux = $manager->afficherHopitaux();
                                 </div>
 
                                 <div>
-                                    <button type="submit" class="btninsc">Créer un compte</button>
+                                    <button type="submit" class="btninsc">Valider</button>
                                     <button type="reset" class="btninsc">Réinitialiser</button>
                                 </div>
                         </form>
