@@ -307,7 +307,7 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     foreach ($result as $rows) {
       $excel .= "$rows[nom] \t $rows[prenom] \t $rows[mail] \t $rows[nomSpe] \t $rows[telephone] \t $rows[ville] \n";
       header("Content-type: application/vnd.ms-excel");
-      header("Content-disposition: attachment; filename=DoctorFile.xls");
+      header("Content-disposition: attachment; filename=Liste des médecins.xls");
       print $excel;
       exit;
     }
