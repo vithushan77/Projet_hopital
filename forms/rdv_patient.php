@@ -25,6 +25,7 @@
 </header>
 <!-- Navbar-->
 <?php include '../include/header.php';
+require_once ($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/identifiant.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php');
 $manager = new Manager();
 $res = $manager->displayHours();
@@ -33,7 +34,6 @@ $rdv = $manager->getLesrdv();
 $resultrdv = $manager->getUserRdv();
 $categoriesMotifs = $manager->afficherCategoriesMotifs();
 $typesConsultations = $manager->afficherTypesConsultations();
-var_dump($_SESSION);
 ?>
 <br><br>
 <section class="page-section about-heading">
@@ -54,29 +54,30 @@ var_dump($_SESSION);
                                         <select name="nom" class="selectrdv" required>
                                             <?php
                                             foreach ($med as $value1){ ?>
-                                                <option value="<?= $value1['nom']?>"><?='Dr','.',$value1['nom']?></option>
+                                                <option value="<?= $value1['id']?>"><?='Dr','.',$value1['nom']?></option>
                                             <?php } ?>
                                         </select>
                                 </div>
-
+                                <br></br>
                                 <div class="col-md-12">
-                                    <label for="">Catégorie de motif :</label>
-                                    <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($categoriesMotifs as $values) { ?>
-                                        <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-
+                                <label for="">Motif de consultation :</label>
+                                <select name="libelle" class="selectmot" required>
+                                    <?php foreach($typesConsultations as $keys => $values) { ?>
+                                    <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
+                                    <?php } ?>
+                                </select>
+                                    <div class="col-md-12">
+                                        <label for="">Catégorie de motif :</label>
+                                        <select name="libelle" class="selectmot" required>
+                                            <?php foreach($categoriesMotifs as $keys => $values) { ?>
+                                                <option value="<?=$values['id']?>"><?=$values['libelle']?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
                                 <div class="col-md-12">
-                                    <label for="">Motif de consultation :</label>
-                                    <select name="libelle" class="selectrdv" required>
-                                        <?php foreach($typesConsultations as $values2) { ?>
-                                            <option value="<?=$values2['id']?>"><?=$values2['libelle']?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <label for="">Choisir la date  :</label>
+                                    <input type="date" name="daterdv" class="" id="date" min="<?= date('Y-m-d'); ?>"/>
                                 </div>
-
                                 <div class="col-md-12">
                                     <label for="">Choisir l'heure du RDV:</label>
                                     <select name="heure" class="selectrdv">
@@ -99,6 +100,15 @@ var_dump($_SESSION);
                 <div class="card">
                     <h5 class="card-header">Vos Rendez-vous à venir</h5>
                     <?php
+                    $db = new PDO('mysql:host=' . $_ENV["bdd_host"] . ';dbname=' . $_ENV["bdd_name"] . ';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+                    $sql= $db->prepare('SELECT nom from utilisateur INNER JOIN medecin ON medecin.id_user = utilisateur.id INNER JOIN rdv ON rdv.id_medecin = medecin.id where rdv.id = :id');
+                    $res = $sql->execute(array(
+                            'id'=>
+                    ));
+                    echo '<pre>';
+                    print_r($la_valeur_de_l_id);
+                    echo '<pre>';
+                    die();
                     foreach ($resultrdv as $value2){
                     ?>
                     <div class="card-body">
@@ -117,7 +127,7 @@ var_dump($_SESSION);
                                 <td><?=$value2['heure']?></td>
                                 <td><?=$value2['nom']?></td>
                                 <td><?=$value2['prenom']?></td>
-                                <td><?=$value2['nom_medecin'] ?></td>
+                                <td><?=$sql['nom']?></td>
                             </tr>
                             </tbody>
                         </table>

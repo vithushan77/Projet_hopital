@@ -300,7 +300,11 @@ kbd kbd {
   font-size: 1em;
   font-weight: 700;
 }
+.selectmot{
+  width: 28%;
+  margin-left: 45px;
 
+}
 figure {
   margin: 0 0 1rem;
 }
