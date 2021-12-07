@@ -96,7 +96,7 @@ class manager
           'mail' => $u->getMail(),
           'mdp' => $u->getMdp(),
           'statut' => $u->getStatut(),
-        'etat' => "Activé"
+          'etat' => "Activé"
       ));
       $this->phpmail($u);
       echo '<body onLoad="alert(\'Compte créé avec succès\')">';
@@ -381,8 +381,8 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Activé" WHERE id=:id');
     $sql->execute(array(
-      'id'=>$u->getId(),
-      'etat' => "Activé"
+        'id' => $u->getId(),
+        'etat' => "Activé"
     ));
   }
 
@@ -391,12 +391,13 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
     $db = $this->connexionBdd();
     $sql = $db->prepare('UPDATE utilisateur SET etat="Désactivé" WHERE id=:id');
     $sql->execute(array(
-      'id'=>$u->getId(),
-      'etat' => "Désactivé"
+        'id' => $u->getId(),
+        'etat' => "Désactivé"
     ));
   }
 
-  public function afficherHopitaux() {
+  public function afficherHopitaux()
+  {
     $db = $this->connexionBdd();
     $sql = $db->prepare('SELECT * FROM hopitaux');
     $sql->execute();
@@ -511,31 +512,31 @@ WHERE utilisateur.mail = :mail');
 
 
   public function priseRDVpatient($infordv1)
-    {
+  {
     $sql = $this->connexionBdd()->prepare('SELECT id FROM medecin where id = :id');
     $sql->execute([
         'id' => $infordv1['nom']
     ]);
     $resultmedecin = $sql->fetch();
 
-  //var_dump($resultmedecin);
+    //var_dump($resultmedecin);
 
     $sql = $this->connexionBdd()->prepare('SELECT id FROM utilisateur where mail =:mail ');
     $sql->execute([
         'mail' => $_SESSION['mail']
     ]);
     $resultpatient = $sql->fetch();
-       //var_dump($resultpatient);
-   //var_dump($_SESSION);
+    //var_dump($resultpatient);
+    //var_dump($_SESSION);
     $sql = $this->connexionBdd()->prepare('SELECT id FROM heure WHERE heure=:heure');
     $sql->execute([
         'heure' => $infordv1['heure']
     ]);
     $resultheure = $sql->fetch();
-   //var_dump($resultheure);
+    //var_dump($resultheure);
     $sql = $this->connexionBdd()->prepare('INSERT INTO rdv (id_heure, id_patient, id_medecin)
       VALUES (:id_heure, :id_patient, :id_medecin)');
-      $res = $sql->execute([
+    $res = $sql->execute([
         'id_medecin' => $resultmedecin['id'],
         'id_patient' => $resultpatient['id'],
         'id_heure' => $resultheure['id']
@@ -594,17 +595,24 @@ WHERE utilisateur.mail = :mail');
   {
 
     if ($_SESSION['statut'] == "patient") {
-      $sql = $this->connexionBdd()->prepare('SELECT *
+      $sql = $this->connexionBdd()->prepare('SELECT rdv.id, u_patient.nom, u_patient.prenom, heure.heure,u_medecin.nom as nom_medecin, u_medecin.prenom as prenom_medecin
 FROM rdv
-INNER JOIN utilisateur ON rdv.id_patient=utilisateur.id
-INNER JOIN heure ON rdv.id_heure=heure.id
+INNER JOIN utilisateur as u_patient ON rdv.id_patient = u_patient.id
+INNER JOIN heure ON rdv.id_heure = heure.id
+INNER JOIN medecin ON rdv.id_medecin = medecin.id
+INNER JOIN utilisateur as u_medecin ON medecin.id_user=u_medecin.id
 WHERE rdv.id_patient = :id_utilisateur');
       $sql->execute(array(
           'id_utilisateur' => $_SESSION['id'],
       ));
+
       $res = $sql->fetchAll();
       return $res;
     }
+
+
+
+
 
 
     if ($_SESSION['statut'] == "medecin") {
