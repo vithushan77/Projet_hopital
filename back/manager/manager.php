@@ -302,7 +302,6 @@ INNER JOIN utilisateur on medecin.id_user = utilisateur.id');
       header("Content-type: application/vnd.ms-excel");
       header("Content-disposition: attachment; filename=Liste des médecins.xls");
       print $excel;
-      exit;
     }
   }
 
