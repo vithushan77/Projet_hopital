@@ -70,7 +70,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
                                 Gestion d'urgences
                             </h4>
                         </caption>
-                        <input type="button" class="btninsc" value="Gestion d'urgences" onClick="location.href='../view/gestionUrgences.php'">
+                        <input type="button" class="btninsc" value="Gestion d'urgences" onClick="location.href='../forms/gestionUrgences.php'">
 
                         <hr>
 
