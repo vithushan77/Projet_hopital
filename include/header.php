@@ -8,7 +8,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
 ?>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hopital HSP</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
@@ -21,9 +21,9 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/Projet_hopital/back/manager/manager.php
               if(empty($_SESSION['mail'])) {
                ?>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/index.php">Accueil</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/medecins.php">Nos médecins</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/medecins.php">À propos</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/locaux.php">Nos locaux</a></li>
-                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/store.php">Store</a></li>
+                <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/store.php">Horaires</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/view/urgence.php">Urgence</a></li>
                 <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/Projet_hopital/forms/inscription.php">Espace utilisateur</a></li>
               <?php }

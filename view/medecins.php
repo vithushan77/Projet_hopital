@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Business Casual - Start Bootstrap Theme</title>
+        <title>Hôpital Robert Schuman</title>
         <link rel="icon" type="image/x-icon" href="/Projet_hopital/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -18,8 +18,7 @@
     <body>
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
-                <span class="site-heading-upper text-primary mb-3">A Free Bootstrap Business Theme</span>
-                <span class="site-heading-lower">Business Casual</span>
+                <span class="site-heading-lower">Nos medecins</span>
             </h1>
         </header>
         <!-- Navbar-->
@@ -33,14 +32,15 @@
                         <div class="col-xl-9 col-lg-10 mx-auto">
                             <div class="bg-faded rounded p-5">
                                 <h2 class="section-heading mb-4">
-                                    <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
-                                    <span class="section-heading-lower">About Our Cafe</span>
+                                    <span class="section-heading-lower">Présentation</span>
+                                    <span class="section-heading-upper">A propos</span>
+
                                 </h2>
-                                <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
+                                <p>Dans l'hopital HSP, nous vous proposons des medecins spécialisé dans tout les spécialités et chaque patient peut prendre RDV avec le medecins souhaiter en créant son compte dans notre site. </p>
+
                                 <p class="mb-0">
-                                    We guarantee that you will fall in
-                                    <em>lust</em>
-                                    with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
+                                    Plus de 4.000 membres du personnel, dans 80 métiers différents, contribuent quotidiennement à prodiguer des soins sous le signe de l’ambition, de l’excellence et du bien-être.
+
                                 </p>
                             </div>
                         </div>
