@@ -43,8 +43,8 @@
                 </div>
             </div>
         </section>
-        <footer class="footer text-faded text-center py-5">
-        </footer>
+        <?php include '../include/footer.php'; ?>
+        
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
