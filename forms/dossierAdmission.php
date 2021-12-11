@@ -84,11 +84,12 @@
 
                                     <div class="col-md-4">
                                       <label for="">Option</label>
-                                      <select name="optn" class="form-control" required>
+                                      <select name="opt" class="form-control" required>
                                         <optgroup label="">
                                           <option value="Aucun">Aucun</option>
                                           <option value="Tele">Télé</option>
                                           <option value="Wifi">Wifi</option>
+                                          <option value="Livres">Livres</option>
                                         </optgroup>
                                       </select>
                                     </div>
