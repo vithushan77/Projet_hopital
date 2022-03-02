@@ -47,7 +47,8 @@ class manager
   public function connexionBdd()
   {
     try {
-      $db = new PDO('mysql:host=' . $_ENV["bdd_host"] . ';dbname=' . $_ENV["bdd_name"] . ';charset=utf8', $_ENV["bdd_user"], $_ENV["bdd_password"]);
+      $db = new PDO('mysql:host=172.16.0.132;dbname=projet_hopital;charset=utf8', 'root', 'admin');
+
     } catch (Exception $e) {
       die('Error:' . $e->getMessage());
     }
